@@ -1,4 +1,4 @@
-BinaryReader and BinaryWriter from .NET for NodeJS
+BufferReader and BufferWriter from .NET for NodeJS
 ==============================================================
 
 These utilities provide you with a BufferReader and BufferWriter class with functions similar to the BinaryReader and BinaryWriter .NET classes.\
@@ -17,12 +17,12 @@ You can then start using the package by requiring it from your application as su
 
     var BufferUtility = require('bufferutility');
 
-BinaryReader Class
+BufferReader Class
 ------------------
 
-### BinaryReader(inputBuffer, isBigEndian, position)
+### BufferReader(inputBuffer, isBigEndian, position)
 
-* Initializes a BinaryReader with the specified settings
+* Initializes a BufferReader with the specified settings
 * inputBuffer can be a `Buffer`, a `string` (text or file path) or a `fd` (file descriptor)
 * isBigEndian is a boolean (default: false)
 * position set the default position of the reader (default: 0)
@@ -133,12 +133,12 @@ BinaryReader Class
 
 * A string containing the remaining data from the original buffer
 
-BinaryWriter Class
+BufferWriter Class
 ------------------
 
-### BinaryWriter(inputBuffer, isBigEndian, position)
+### BufferWriter(inputBuffer, isBigEndian, position)
 
-* Initializes a BinaryWriter with the specified settings
+* Initializes a BufferWriter with the specified settings
 * inputBuffer can be undefined, a `Buffer`, a `string` or a `fd` (file descriptor)
 * isBigEndian is a boolean (default: false)
 * position set the default position of the writer (default: 0)
