@@ -1,4 +1,4 @@
-BufferReader and BufferWriter from .NET for NodeJS
+BinaryReader and BinaryWriter from .NET for NodeJS
 ==============================================================
 
 These utilities provide you with a BufferReader and BufferWriter class with functions similar to the BinaryReader and BinaryWriter .NET classes.\
