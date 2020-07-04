@@ -1,5 +1,5 @@
 {
-  "name": "bufferutils",
+  "name": "bufferutility",
   "version": "1.0.0",
   "description": "BinaryReader and BinaryWriter from .NET on NodeJS",
   "main": "index.js",
@@ -19,5 +19,11 @@
   "bugs": {
     "url": "https://github.com/Pharuxtan/BufferUtils/issues"
   },
-  "homepage": "https://github.com/Pharuxtan/BufferUtils#readme"
+  "homepage": "https://github.com/Pharuxtan/BufferUtils#readme",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
 }

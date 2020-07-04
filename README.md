@@ -11,11 +11,11 @@ You can install this package either by using npm or by downloading the source fr
 
 To install using npm open your terminal (or command line), make sure you're in your application directory and execute the following command:
 
-    npm install bufferutils
+    npm install bufferutility
 
 You can then start using the package by requiring it from your application as such:
 
-    var BufferUtils = require('bufferutils');
+    var BufferUtility = require('bufferutility');
 
 BinaryReader Class
 ------------------
@@ -251,7 +251,7 @@ Example
 -------
 
 ```javascript
-var {BufferReader, BufferWriter} = require('bufferutils');
+var {BufferReader, BufferWriter} = require('bufferutility');
 
 var reader = new BufferReader([0x1, 0x2, 0x0, 0x3, 0x0, 0x0, 0x0, 0x4, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6]);
 
