@@ -1,11 +1,11 @@
 {
   "name": "bufferutility",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "BinaryReader and BinaryWriter from .NET on NodeJS",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Pharuxtan/BufferUtils.git"
+    "url": "git+https://github.com/Pharuxtan/BufferUtility.git"
   },
   "keywords": [
     "binaryreader",
@@ -17,9 +17,9 @@
   "author": "Pharuxtan",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Pharuxtan/BufferUtils/issues"
+    "url": "https://github.com/Pharuxtan/BufferUtility/issues"
   },
-  "homepage": "https://github.com/Pharuxtan/BufferUtils#readme",
+  "homepage": "https://github.com/Pharuxtan/BufferUtility#readme",
   "directories": {
     "lib": "lib"
   },
