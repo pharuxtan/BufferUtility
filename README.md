@@ -49,6 +49,10 @@ BufferReader Class
 
 * Reads a 64 bit unsigned integer from the buffer and advances the current position by 8 bytes
 
+### ReadUInt128()
+
+* Reads a 128 bit unsigned integer from the buffer and advances the current position by 16 bytes
+
 ### ReadInt8()
 
 * Reads a 8 bit signed integer from the buffer and advances the current position by 1 byte
@@ -64,6 +68,10 @@ BufferReader Class
 ### ReadInt64()
 
 * Reads a 64 bit signed integer from the buffer and advances the current position by 8 bytes
+
+### ReadInt128()
+
+* Reads a 128 bit signed integer from the buffer and advances the current position by 16 bytes
 
 ### Read7BitEncodedInt()
 
@@ -161,6 +169,10 @@ BufferWriter Class
 
 * Writes a 64 bit unsigned integer to the buffer and advances the current position by 8 bytes
 
+### WriteUInt128(value)
+
+* Writes a 128 bit unsigned integer to the buffer and advances the current position by 16 bytes
+
 ### WriteInt8(value)
 
 * Writes a 8 bit signed integer to the buffer and advances the current position by 1 byte
@@ -176,7 +188,10 @@ BufferWriter Class
 ### WriteInt64(value)
 
 * Writes a 64 bit signed integer to the buffer and advances the current position by 8 bytes
-* value can be a `number` or a `BigInt`
+
+### WriteInt128(value)
+
+* Writes a 128 bit signed integer to the buffer and advances the current position by 16 bytes
 
 ### Write7BitEncodedInt(value)
 
@@ -239,7 +254,7 @@ BufferWriter Class
 
 * The boolean tell if the reader use LittleEndian (false) or BigEndian (true)
 
-### buffer [Buffer]
+### Buffer [Buffer]
 
 * A buffer containing the data written using the class functions
 
@@ -258,7 +273,9 @@ var reader = new BufferReader([0x1, 0x2, 0x0, 0x3, 0x0, 0x0, 0x0, 0x4, 0x0, 0x0,
 console.log(reader.ReadUInt8()); // Will print '1'
 console.log(reader.ReadUInt16()); // Will print '2'
 console.log(reader.ReadUInt32()); // Will print '3'
-console.log(reader.ReadUInt64()); // Will print '4n'
+console.log(reader.ReadUInt64()); // Will print '4'
+reader.Position = 0;
+console.log(reader.ReadUInt128()); // Will print '1329227995784915873192037436482388481n'
 reader.Position = 7;
 reader.IsBigEndian = true;
 console.log(reader.ReadUInt64()); // Will print '288230376151711744n'
