@@ -33,7 +33,7 @@ BufferReader Class
 
 * Reads a specific region of the buffer and advances the current position by the length if a position is not specified
 
-### ReadUInt8()
+### ReadUInt8() or ReadByte()
 
 * Reads a 8 bit unsigned integer from the buffer and advances the current position by 1 byte
 
@@ -53,7 +53,7 @@ BufferReader Class
 
 * Reads a 128 bit unsigned integer from the buffer and advances the current position by 16 bytes
 
-### ReadInt8()
+### ReadInt8() or ReadSByte()
 
 * Reads a 8 bit signed integer from the buffer and advances the current position by 1 byte
 
@@ -84,10 +84,6 @@ BufferReader Class
 ### ReadDouble()
 
 * Reads a double from the buffer and advances the current position by 8 bytes
-
-### ReadByte()
-
-* Reads the next byte into a integer and advances the current position by 1 byte
 
 ### ReadBytes(count)
 
@@ -153,7 +149,7 @@ BufferWriter Class
 
 * for `fd`, recommanded flags is `rs+`
 
-### WriteUInt8(value)
+### WriteUInt8(value) or WriteByte()
 
 * Writes a 8 bit unsigned integer to the buffer and advances the current position by 1 byte
 
@@ -173,7 +169,7 @@ BufferWriter Class
 
 * Writes a 128 bit unsigned integer to the buffer and advances the current position by 16 bytes
 
-### WriteInt8(value)
+### WriteInt8(value) or WriteSByte()
 
 * Writes a 8 bit signed integer to the buffer and advances the current position by 1 byte
 
@@ -204,10 +200,6 @@ BufferWriter Class
 ### WriteDouble(value)
 
 * Writes a double to the buffer and advances the current position by 8 bytes
-
-### WriteByte(value)
-
-* Writes a byte to the buffer and advances the current position by 1 byte
 
 ### WriteBytes(value)
 
