@@ -17,6 +17,8 @@ You can then start using the package by requiring it from your application as su
 
     var BufferUtility = require('bufferutility');
 
+For String encoding can be: `utf8` `utf-8` `hex` `ascii` `latin1` `binary` `base64` `ucs2` `ucs-2` `utf16le` `utf-16le`
+
 BufferReader Class
 ------------------
 
@@ -93,15 +95,15 @@ BufferReader Class
 
 * Reads a boolean from the buffer and advances the current position by 1 byte
 
-### ReadChar()
+### ReadChar(encoding)
 
 * Reads the next byte into a string and advances the current position by 1 byte
 
-### ReadChars(count)
+### ReadChars(count, encoding)
 
 * Reads the specified number of bytes into a char array and advances the current position by that number of bytes
 
-### ReadString(count)
+### ReadString(count, encoding)
 
 * Reads the specified number of bytes into a string and advances the current position by that number of bytes
 
@@ -210,15 +212,15 @@ BufferWriter Class
 
 * Writes a boolean to the buffer and advances the current position by 1 bytes
 
-### WriteChar(value)
+### WriteChar(value, encoding)
 
 * Writes a char to the buffer and advances the current position by 1 bytes
 
-### WriteChars(value)
+### WriteChars(value, encoding)
 
 * Writes the specified chars to the buffer and advances the current position by the number of chars
 
-### WriteString(value)
+### WriteString(value, encoding)
 
 * Writes a string to the buffer and advances the position by the length of the string
 
