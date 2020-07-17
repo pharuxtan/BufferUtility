@@ -17,7 +17,7 @@ You can then start using the package by requiring it from your application as su
 
     var BufferUtility = require('bufferutility');
 
-For String encoding can be: `utf8` `utf-8` `hex` `ascii` `latin1` `binary` `base64` `ucs2` `ucs-2` `utf16le` `utf-16le`
+For String, encoding can be: `utf8` `utf-8` `hex` `ascii` `latin1` `binary` `base64` `ucs2` `ucs-2` `utf16le` `utf-16le`
 
 BufferReader Class
 ------------------
@@ -25,7 +25,7 @@ BufferReader Class
 ### BufferReader(inputBuffer, isBigEndian, position)
 
 * Initializes a BufferReader with the specified settings
-* inputBuffer can be a `Buffer`, a `string` (text or file path) or a `fd` (file descriptor)
+* inputBuffer can be a `Buffer`, an `Array`, a `Uint8Array`, a `string` (text or file path) or a `fd` (file descriptor)
 * isBigEndian is a boolean (default: false)
 * position set the default position of the reader (default: 0)
 
@@ -87,9 +87,10 @@ BufferReader Class
 
 * Reads a double from the buffer and advances the current position by 8 bytes
 
-### ReadBytes(count)
+### ReadBytes(count, retUInt8Array)
 
 * Reads the specified number of bytes into a new buffer and advances the current position by that number of bytes
+* retUInt8Array is a boolean specify if return is a Buffer (false) or a Uint8Array (true)
 
 ### ReadBoolean()
 
@@ -145,7 +146,7 @@ BufferWriter Class
 ### BufferWriter(inputBuffer, isBigEndian, position)
 
 * Initializes a BufferWriter with the specified settings
-* inputBuffer can be undefined, a `Buffer`, a `string` or a `fd` (file descriptor)
+* inputBuffer can be undefined, a `Buffer`, an `Array`, a `Uint8Array`, a `string` or a `fd` (file descriptor)
 * isBigEndian is a boolean (default: false)
 * position set the default position of the writer (default: 0)
 
