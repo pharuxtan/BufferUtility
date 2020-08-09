@@ -120,21 +120,21 @@ console.log(concat2 === buf5);
 // false
 
 console.log(buf5.filename);
-// C:/Users/%username%/AppData%/Temp/BufferUtility/(random 32 hex digit).bin
+// C:/Users/%username%/AppData%/Temp/BufferUtility/(random 32 length hex digit).bin
 
 BufferUtility.changeTmpFolder("D:/Temp", true);
 
 let buf6 = BufferUtility();
 
 console.log(buf6.filename);
-// D:/Temp/BinaryUtility/(random 32 hex digit).bin
+// D:/Temp/BinaryUtility/(random 32 length hex digit).bin
 
 BufferUtility.changeTmpFolder("D:/Temp", false);
 
 let buf7 = BufferUtility();
 
 console.log(buf7.filename);
-// D:/Temp/(random 32 hex digit).bin
+// D:/Temp/(random 32 length hex digit).bin
 
 let buffer = BufferUtility();
 
@@ -178,12 +178,32 @@ buffer.read(6, buffer.position - 6).toBuffer();
 
 Create a new BufferUtility instance from `buffer` property
 
+```js
+let buf1 = BufferUtility();
+let buf2 = BufferUtility("test");
+let buf3 = BufferUtility("€", false, "utf8");
+let buf4 = BufferUtility("C:/myfile.txt", true);
+let buf6 = BufferUtility("hmmmmmmmm", false, "utf8", 1, 7);
+```
+
 ### isBufferUtility(obj)
 
 - `obj` : `<Object>`
 - Returns : `<boolean>`
 
 Returns `true` if `obj` is a `BufferUtility`, `false` otherwise.
+
+```js
+let buf1 = BufferUtility("a BufferUtility");
+
+let buf2 = Buffer.from("a Buffer");
+
+console.log(BufferUtility.isBufferUtility(buf1));
+// true
+
+console.log(BufferUtility.isBufferUtility(buf2));
+// false
+```
 
 ### changeTmpFolder(folder[, withBufferUtilityFolder])
 
@@ -193,6 +213,27 @@ Returns `true` if `obj` is a `BufferUtility`, `false` otherwise.
 
 Change the temp folder where temporary files are stocked
 
+```js
+let buf1 = BufferUtility("test");
+
+console.log(buf1.filename);
+// C:/Users/%username%/AppData%/Temp/BufferUtility/(random 32 length hex digit).bin
+
+BufferUtility.changeTmpFolder("D:/Temp");
+
+let buf2 = BufferUtility("test");
+
+console.log(buf2.filename);
+// D:/Temp/BufferUtility/(random 32 length hex digit).bin
+
+BufferUtility.changeTmpFolder("D:/Temp", false);
+
+let buf3 = BufferUtility("test");
+
+console.log(buf3.filename);
+// D:/Temp/(random 32 length hex digit).bin
+```
+
 ### concat(list[, createNewBU])
 
 - `list` : `<Array>` Array of "`<Buffer>` | `<Array>` | `<BufferUtility>` | `<Uint8Array>`"
@@ -200,6 +241,30 @@ Change the temp folder where temporary files are stocked
 - Returns : `<BufferUtility>`
 
 Returns a BufferUtility which is the result of concatenating all the instances in the list together.
+
+```js
+let buf1 = BufferUtility("test");
+let buf2 = BufferUtility(", is this working ?");
+
+BufferUtility.concat([buf1, buf2]);
+
+console.log(buf1);
+// <BufferUtility 74 65 73 74 2c 20 69 73 20 74 68 69 73 20 77 6f 72 6b 69 6e 67 20 3f>
+console.log(buf1.toString());
+// test, is this working ?
+```
+
+```js
+let buf1 = BufferUtility("test");
+let buf2 = BufferUtility(", is this working ?");
+
+let buf3 = BufferUtility.concat([buf1, buf2], true);
+
+console.log(buf3);
+// <BufferUtility 74 65 73 74 2c 20 69 73 20 74 68 69 73 20 77 6f 72 6b 69 6e 67 20 3f>
+console.log(buf3.toString());
+// test, is this working ?
+```
 
 ### byteLength(string[, encoding])
 
@@ -219,7 +284,7 @@ See https://nodejs.org/api/buffer.html#buffer_class_method_buffer_compare_buf1_b
 
 See [BufferUtility(\[buffer\[, isFile\[, encoding\[, offset\[, size\]\]\]\]\])](#bufferutilitybuffer-isfile-encoding-offset-size)
 
-## Documentation for others functions is on work in progress
+### Documentation for others functions is on work in progress
 
 ## How to retrieve BufferUtility V1 ?
 
