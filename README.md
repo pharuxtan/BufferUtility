@@ -1,292 +1,251 @@
-BinaryReader and BinaryWriter from .NET for NodeJS
-==============================================================
+<div align="center">
+    <h1>BufferUtility</h1>
+  	<p>BufferUtility break the Nodejs buffer size limitation by reading/writing a file dynamically</p>
+</div>
 
-These utilities provide you with a BufferReader and BufferWriter class with functions similar to the BinaryReader and BinaryWriter .NET classes.\
-They also allow you to define a specific endianness!
+---
 
-Basic installation and usage
-----------------------------
+<!-- TOC -->
+
+<!-- WIP -->
+
+<!-- /TOC -->
+
+## Basic installation and usage
 
 You can install this package either by using npm or by downloading the source from GitHub and requiring it directly.
 
 To install using npm open your terminal (or command line), make sure you're in your application directory and execute the following command:
 
-    npm install bufferutility
+```console
+npm install bufferutility
+```
 
 You can then start using the package by requiring it from your application as such:
 
-    var BufferUtility = require('bufferutility');
-
-For String, encoding can be: `utf8` `utf-8` `hex` `ascii` `latin1` `binary` `base64` `ucs2` `ucs-2` `utf16le` `utf-16le`
-
-BufferReader Class
-------------------
-
-### BufferReader(inputBuffer, isBigEndian, position)
-
-* Initializes a BufferReader with the specified settings
-* inputBuffer can be a `Buffer`, an `Array`, a `Uint8Array`, a `string` (text or file path) or a `fd` (file descriptor)
-* isBigEndian is a boolean (default: false)
-* position set the default position of the reader (default: 0)
-
-* for `fd`, recommanded flags is `r`
-
-### Read(length[, position])
-
-* Reads a specific region of the buffer and advances the current position by the length if a position is not specified
-
-### ReadUInt8() or ReadByte()
-
-* Reads a 8 bit unsigned integer from the buffer and advances the current position by 1 byte
-
-### ReadUInt16()
-
-* Reads a 16 bit unsigned integer from the buffer and advances the current position by 2 bytes
-
-### ReadUInt32()
-
-* Reads a 32 bit unsigned integer from the buffer and advances the current position by 4 bytes
-
-### ReadUInt64()
-
-* Reads a 64 bit unsigned integer from the buffer and advances the current position by 8 bytes
-
-### ReadUInt128()
-
-* Reads a 128 bit unsigned integer from the buffer and advances the current position by 16 bytes
-
-### ReadInt8() or ReadSByte()
-
-* Reads a 8 bit signed integer from the buffer and advances the current position by 1 byte
-
-### ReadInt16()
-
-* Reads a 16 bit signed integer from the buffer and advances the current position by 2 bytes
-
-### ReadInt32()
-
-* Reads a 32 bit signed integer from the buffer and advances the current position by 4 bytes
-
-### ReadInt64()
-
-* Reads a 64 bit signed integer from the buffer and advances the current position by 8 bytes
-
-### ReadInt128()
-
-* Reads a 128 bit signed integer from the buffer and advances the current position by 16 bytes
-
-### Read7BitEncodedInt()
-
-* Reads a 7 bit encoded integer from the buffer
-
-### ReadFloat() or ReadSingle()
-
-* Reads a float from the buffer and advances the current position by 4 bytes
-
-### ReadDouble()
-
-* Reads a double from the buffer and advances the current position by 8 bytes
-
-### ReadBytes(count, retUInt8Array)
-
-* Reads the specified number of bytes into a new buffer and advances the current position by that number of bytes
-* retUInt8Array is a boolean specify if return is a Buffer (false) or a Uint8Array (true)
-
-### ReadBoolean()
-
-* Reads a boolean from the buffer and advances the current position by 1 byte
-
-### ReadChar(encoding)
-
-* Reads the next byte into a string and advances the current position by 1 byte
-
-### ReadChars(count, encoding)
-
-* Reads the specified number of bytes into a char array and advances the current position by that number of bytes
-
-### ReadString(count, encoding)
-
-* Reads the specified number of bytes into a string and advances the current position by that number of bytes
-
-### ReadInt(count)
-
-* Reads the specified number of bytes into an signed integer and advances the current position by that number of bytes
-
-### ReadUInt(count)
-
-* Reads the specified number of bytes into an unsigned integer and advances the current position by that number of bytes
-
-### Close()
-
-* Close the reader
-
-### Length [Number]
-
-* The length of the initially provided data
-
-### Position [Number]
-
-* The current position (index) of the reader
-
-### IsBigEndian [Boolean]
-
-* The boolean tell if the reader use LittleEndian (false) or BigEndian (true)
-
-### Buffer [Buffer]
-
-* A buffer containing the remaining data from the original buffer
-
-### String [String]
-
-* A string containing the remaining data from the original buffer
-
-BufferWriter Class
-------------------
-
-### BufferWriter(inputBuffer, isBigEndian, position)
-
-* Initializes a BufferWriter with the specified settings
-* inputBuffer can be undefined, a `Buffer`, an `Array`, a `Uint8Array`, a `string` or a `fd` (file descriptor)
-* isBigEndian is a boolean (default: false)
-* position set the default position of the writer (default: 0)
-
-* for `fd`, recommanded flags is `rs+`
-
-### WriteUInt8(value) or WriteByte()
-
-* Writes a 8 bit unsigned integer to the buffer and advances the current position by 1 byte
-
-### WriteUInt16(value)
-
-* Writes a 16 bit unsigned integer to the buffer and advances the current position by 2 bytes
-
-### WriteUInt32(value)
-
-* Writes a 32 bit unsigned integer to the buffer and advances the current position by 4 bytes
-
-### WriteUInt64(value)
-
-* Writes a 64 bit unsigned integer to the buffer and advances the current position by 8 bytes
-
-### WriteUInt128(value)
-
-* Writes a 128 bit unsigned integer to the buffer and advances the current position by 16 bytes
-
-### WriteInt8(value) or WriteSByte()
-
-* Writes a 8 bit signed integer to the buffer and advances the current position by 1 byte
-
-### WriteInt16(value)
-
-* Writes a 16 bit signed integer to the buffer and advances the current position by 2 bytes
-
-### WriteInt32(value)
-
-* Writes a 32 bit signed integer to the buffer and advances the current position by 4 bytes
-
-### WriteInt64(value)
-
-* Writes a 64 bit signed integer to the buffer and advances the current position by 8 bytes
-
-### WriteInt128(value)
-
-* Writes a 128 bit signed integer to the buffer and advances the current position by 16 bytes
-
-### Write7BitEncodedInt(value)
-
-* Writes a 7 bit encoded integer to the buffer
-
-### WriteFloat(value) or WriteSingle(value)
-
-* Writes a float to the buffer and advances the current position by 4 bytes
-
-### WriteDouble(value)
-
-* Writes a double to the buffer and advances the current position by 8 bytes
-
-### WriteBytes(value)
-
-* Writes the specified bytes to the buffer and advances the current position by the number of bytes
-* value can be a `Buffer` or an `array`
-
-### WriteBoolean(value)
-
-* Writes a boolean to the buffer and advances the current position by 1 bytes
-
-### WriteChar(value, encoding)
-
-* Writes a char to the buffer and advances the current position by 1 bytes
-
-### WriteChars(value, encoding)
-
-* Writes the specified chars to the buffer and advances the current position by the number of chars
-
-### WriteString(value, encoding)
-
-* Writes a string to the buffer and advances the position by the length of the string
-
-### WriteInt(value, length)
-
-* Writes a signed integer to the buffer and advances the position by the length
-
-### WriteUInt(value, length)
-
-* Writes a unsigned integer to the buffer and advances the position by the length
-
-### Close()
-
-* Close the writer
-
-### Length [Number]
-
-* The length of the current data buffer
-
-### Position [Number]
-
-* The current position (index) of the writer
-
-### IsBigEndian [Boolean]
-
-* The boolean tell if the reader use LittleEndian (false) or BigEndian (true)
-
-### Buffer [Buffer]
-
-* A buffer containing the data written using the class functions
-
-### String [String]
-
-* A string containing the remaining data from the original buffer
-
-Example
--------
-
-```javascript
-var {BufferReader, BufferWriter} = require('bufferutility');
-
-var reader = new BufferReader([0x1, 0x2, 0x0, 0x3, 0x0, 0x0, 0x0, 0x4, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6]);
-
-console.log(reader.ReadUInt8()); // Will print '1'
-console.log(reader.ReadUInt16()); // Will print '2'
-console.log(reader.ReadUInt32()); // Will print '3'
-console.log(reader.ReadUInt64()); // Will print '4'
-reader.Position = 0;
-console.log(reader.ReadUInt128()); // Will print '1329227995784915873192037436482388481n'
-reader.Position = 7;
-reader.IsBigEndian = true;
-console.log(reader.ReadUInt64()); // Will print '288230376151711744n'
-console.log(reader.ReadBytes(6)); // Will print '<Buffer 01 02 03 04 05 06>'
-console.log(reader.Position); // Will print '21'
-console.log(reader.Length); // Will print '21'
-
-//
-
-var writer = new BufferWriter();
-
-writer.WriteUInt16(65535);
-writer.WriteUInt32(0);
-writer.WriteInt32(-1);
-writer.WriteBytes([5, 4, 3, 2, 1]);
-
-console.log(writer.Buffer); // Will print '<Buffer ff ff 00 00 00 00 ff ff ff ff 05 04 03 02 01>'
-console.log(writer.Length); // Will print '15'
+```js
+var { BufferUtility } = require('bufferutility');
 ```
+
+## Common Usage
+
+### Create a new BufferUtility
+
+```js
+const { BufferUtility } = require("bufferutility");
+
+let buffer = BufferUtility();
+
+console.log(buffer);
+// <BufferUtility >
+
+buffer[0] = 0xfa; // or buffer.writeByte(0xfa, 0);
+
+console.log(buffer);
+// <BufferUtility fa>
+
+console.log(buffer[0]);
+// 250
+```
+
+### Create a BufferUtility with different type of variable
+
+```js
+const { BufferUtility } = require("bufferutility");
+
+console.log(BufferUtility("abcdef"));
+// <BufferUtility 61 62 63 64 65 66>
+
+console.log(BufferUtility(Buffer.from("abcdef")));
+// <BufferUtility 61 62 63 64 65 66>
+
+console.log(BufferUtility([0x61, 0x62, 0x63, 0x64, 0x65, 0x66]));
+// <BufferUtility 61 62 63 64 65 66>
+
+console.log(BufferUtility(6));
+// <BufferUtility 00 00 00 00 00 00>
+
+console.log(BufferUtility([6]));
+// <BufferUtility 06>
+
+let buffer = BufferUtility("123456");
+
+console.log(BufferUtility(buffer));
+// <BufferUtility 31 32 33 34 35 36>
+
+/*
+ * file: C:\cool.txt
+ * content: A cool file :D
+ */
+
+let file = BufferUtility("C:\\cool.txt", true);
+
+console.log(file);
+// <BufferUtility 41 20 63 6f 6f 6c 20 66 69 6c 65 20 3a 44>
+```
+
+### Some other example
+
+```js
+const { BufferUtility } = require("bufferutility");
+
+let buf1 = BufferUtility();
+
+console.log(BufferUtility.isBufferUtility(buf1));
+// true
+
+console.log(BufferUtility.isBufferUtility(Buffer.alloc(0)));
+// false
+
+let buf2 = BufferUtility("1234");
+let buf3 = BufferUtility("0123");
+let arr = [buf2, buf3];
+
+console.log(arr.sort(BufferUtility.compare));
+// [<BufferUtility 30 31 32 33>, <BufferUtility 31 32 33 34>]
+
+let buf4 = BufferUtility("1");
+let buf5 = BufferUtility("2");
+
+let concat1 = BufferUtility.concat([buf4, buf5], false);
+let concat2 = BufferUtility.concat([buf4, buf5], true);
+
+console.log(concat1); // console.log(concat2);
+// <BufferUtility 31 32>
+
+console.log(concat1 === buf4);
+// true
+
+console.log(concat2 === buf5);
+// false
+
+console.log(buf5.filename);
+// C:/Users/%username%/AppData%/Temp/BufferUtility/(random 32 hex digit).bin
+
+BufferUtility.changeTmpFolder("D:/Temp", true);
+
+let buf6 = BufferUtility();
+
+console.log(buf6.filename);
+// D:/Temp/BinaryUtility/(random 32 hex digit).bin
+
+BufferUtility.changeTmpFolder("D:/Temp", false);
+
+let buf7 = BufferUtility();
+
+console.log(buf7.filename);
+// D:/Temp/(random 32 hex digit).bin
+
+let buffer = BufferUtility();
+
+buffer.writeUInt8(1);
+// <BufferUtility 01>
+buffer.writeUInt16LE(2);
+// <BufferUtility 01 02 00>
+buffer.writeUInt32LE(3);
+// <BufferUtility 01 02 00 03 00 00 00>
+buffer.writeUInt64LE(4);
+// <BufferUtility 01 02 00 03 00 00 00 04 00 00 00 00 00 00 00>
+buffer.writeBytes([1, 2, 3, 4, 5, 6]);
+// <BufferUtility 01 02 00 03 00 00 00 04 00 00 00 00 00 00 00 01 02 03 04 05 06>
+
+buffer.position = 0; //reset the position
+
+buffer.readUInt8();
+// 1
+buffer.readUInt16LE();
+// 2
+buffer.readUInt32LE();
+// 3
+buffer.readUInt64LE();
+// 4
+buffer.read(6); // same as buffer.readBytes
+// <BufferUtility 01 02 03 04 05 06>
+buffer.read(6, buffer.position - 6).toBuffer();
+// <Buffer 01 02 03 04 05 06>
+```
+
+## Function: BufferUtility
+
+### BufferUtility([buffer[, isFile[, encoding[, offset[, size]]]]])
+
+- `buffer` : `<String>` | `<Buffer>` | `<Array>` | `<BufferUtility>` | `<Uint8Array>` | `<Number>` A property determinate the value of the BufferUtility. Default: `undefined` (empty)
+- `isFile` : `<boolean>` A boolean say if the buffer is a file and not a string. Default: `false`
+- `encoding` : `<String>` The encoding for value if value is a string. Default: `utf8`.
+- `offset` : `<Number>` The forced offset of the file. Default: `0`
+- `length` : `<Number>` The forced length of the file. Default: `null`
+- Returns : `<BufferUtility>`
+
+Create a new BufferUtility instance from `buffer` property
+
+### isBufferUtility(obj)
+
+- `obj` : `<Object>`
+- Returns : `<boolean>`
+
+Returns `true` if `obj` is a `BufferUtility`, `false` otherwise.
+
+### changeTmpFolder(folder[, withBufferUtilityFolder])
+
+- `folder` : `<String>` The path to the new folder
+- `withBufferUtilityFolder` : `<boolean>` Add a BufferUtility folder in the folder for bin files. Default: `true`
+- Returns : `folder`
+
+Change the temp folder where temporary files are stocked
+
+### concat(list[, createNewBU])
+
+- `list` : `<Array>` Array of "`<Buffer>` | `<Array>` | `<BufferUtility>` | `<Uint8Array>`"
+- `createNewBU` : `<boolean>` Create a new BufferUtility, if false the first index of the list must be a BufferUtility. Default: `false`
+- Returns : `<BufferUtility>`
+
+Returns a BufferUtility which is the result of concatenating all the instances in the list together.
+
+### byteLength(string[, encoding])
+
+See https://nodejs.org/api/buffer.html#buffer_class_method_buffer_bytelength_string_encoding
+
+### compare(buf1, buf2)
+
+- `buf1` : `<BufferUtility>`
+- `buf2` : `<BufferUtility>`
+- Returns : Either `-1`, `0`, or `1`, depending on the result of the comparison.
+
+See https://nodejs.org/api/buffer.html#buffer_class_method_buffer_compare_buf1_buf2 for more details
+
+## Class: BufferUtility
+
+### new BufferUtility(...args)
+
+See [BufferUtility(\[buffer\[, isFile\[, encoding\[, offset\[, size\]\]\]\]\])](#bufferutilitybuffer-isfile-encoding-offset-size)
+
+## Documentation for others functions is on work in progress
+
+## How to retrieve BufferUtility V1 ?
+
+V1 is still in BufferUtility for take it you can make this
+
+```js
+const bufferutility = require("bufferutility");
+
+let BufferReader = bufferutility.old.BufferReader;
+let BufferWriter = bufferutility.old.BufferWriter;
+
+new BufferReader();
+new BufferWriter();
+```
+
+Or
+
+```js
+const { old: { BufferReader, BufferWriter } } = require("bufferutility");
+
+new BufferReader();
+new BufferWriter();
+```
+
+Or you can also uninstall the package and install the v1.2.2
+
+You can read the v1 [README here](README.v1.md)
+
+<a rel="license" href="https://github.com/Pharuxtan/BufferUtility/blob/v2/LICENSE"><img src="https://img.shields.io/badge/License-MIT-%23707070?style=for-the-badge" alt="license"></a>
