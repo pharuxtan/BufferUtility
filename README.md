@@ -117,7 +117,6 @@
 - [How to retrieve BufferUtility V1 ?](#how-to-retrieve-bufferutility-v1-)
 - [LICENSE](#license)
 
-
 <!-- /TOC -->
 
 ## Basic installation and usage
@@ -579,7 +578,7 @@ console.log(buf.leftShift(5));
 // <BufferUtility 01>
 ```
 
-### Next README WIP
+### wip
 
 ## How to retrieve BufferUtility V1 ?
 
@@ -588,8 +587,8 @@ V1 is still in BufferUtility for take it you can make this
 ```js
 const bufferutility = require("bufferutility");
 
-let BufferReader = bufferutility.old.BufferReader;
-let BufferWriter = bufferutility.old.BufferWriter;
+let BufferReader = bufferutility.v1.BufferReader;
+let BufferWriter = bufferutility.v1.BufferWriter;
 
 new BufferReader();
 new BufferWriter();
@@ -598,7 +597,7 @@ new BufferWriter();
 Or
 
 ```js
-const { old: { BufferReader, BufferWriter } } = require("bufferutility");
+const { v1: { BufferReader, BufferWriter } } = require("bufferutility");
 
 new BufferReader();
 new BufferWriter();
