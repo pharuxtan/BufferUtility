@@ -580,6 +580,7 @@ console.log(buf.leftShift(5));
 // <BufferUtility 01>
 ```
 
+<<<<<<< HEAD
 ### buf.read(length[, pos])
 
 - `length` : `<integer>` Number of bytes to read.
@@ -1197,6 +1198,9 @@ console.log(buf2.readUInt128BE(0));
 ### buf.isDeleted
 
 ### buf.parent
+=======
+### wip
+>>>>>>> 55d86b24568bc13751e9a6337f4389152ac90119
 
 ## How to retrieve BufferUtility V1 ?
 
