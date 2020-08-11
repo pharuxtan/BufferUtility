@@ -34,8 +34,8 @@
   - [buf.readBytes(length\[, pos\])](#bufreadbyteslength-pos)
   - [buf.slice(pos\[, final\])](#bufslicepos-final)
   - [buf.writeBytes(buffer\[, pos\])](#bufwritebytesbuffer-pos)
-  - [buf.readIntLE(bytesLength\[, pos\])](#bufreadintlebytesLength-pos)
-  - [buf.readIntBE(bytesLength\[, pos\])](#bufreadintbebytesLength-pos)
+  - [buf.readIntLE(bytesLength\[, pos\])](#bufreadintlebyteslength-pos)
+  - [buf.readIntBE(bytesLength\[, pos\])](#bufreadintbebyteslength-pos)
   - [buf.readSByte(\[pos\])](#bufreadsbytepos)
   - [buf.readInt8(\[pos\])](#bufreadint8pos)
   - [buf.readInt16LE(\[pos\])](#bufreadint16lepos)
@@ -46,8 +46,8 @@
   - [buf.readInt64BE(\[pos\])](#bufreadint64bepos)
   - [buf.readInt128LE(\[pos\])](#bufreadint128lepos)
   - [buf.readInt128BE(\[pos\])](#bufreadint128bepos)
-  - [buf.readUIntLE(bytesLength\[, pos\])](#bufreaduintlebytesLength-pos)
-  - [buf.readUIntBE(bytesLength\[, pos\])](#bufreaduintbebytesLength-pos)
+  - [buf.readUIntLE(bytesLength\[, pos\])](#bufreaduintlebyteslength-pos)
+  - [buf.readUIntBE(bytesLength\[, pos\])](#bufreaduintbebyteslength-pos)
   - [buf.readUInt8(\[pos\])](#bufreaduint8pos)
   - [buf.readUInt16LE(\[pos\])](#bufreaduint16lepos)
   - [buf.readUInt16BE(\[pos\])](#bufreaduint16bepos)
@@ -57,8 +57,8 @@
   - [buf.readUInt64BE(\[pos\])](#bufreaduint64bepos)
   - [buf.readUInt128LE(\[pos\])](#bufreaduint128lepos)
   - [buf.readUInt128BE(\[pos\])](#bufreaduint128bepos)
-  - [buf.writeIntLE(number, bytesLength\[, pos\])](#bufwriteintlenumber-bytesLength-pos)
-  - [buf.writeIntBE(number, bytesLength\[, pos\])](#bufwriteintbenumber-bytesLength-pos)
+  - [buf.writeIntLE(number, bytesLength\[, pos\])](#bufwriteintlenumber-byteslength-pos)
+  - [buf.writeIntBE(number, bytesLength\[, pos\])](#bufwriteintbenumber-byteslength-pos)
   - [buf.writeSByte(number\[, pos\])](#bufwritesbytenumber-pos)
   - [buf.writeInt8(number\[, pos\])](#bufwriteint8number-pos)
   - [buf.writeInt16LE(number\[, pos\])](#bufwriteint16lenumber-pos)
@@ -69,8 +69,8 @@
   - [buf.writeInt64BE(number\[, pos\])](#bufwriteint64benumber-pos)
   - [buf.writeInt128LE(number\[, pos\])](#bufwriteint128lenumber-pos)
   - [buf.writeInt128BE(number\[, pos\])](#bufwriteint128benumber-pos)
-  - [buf.writeUIntLE(number, bytesLength\[, pos\])](#bufwriteuintlenumber-bytesLength-pos)
-  - [buf.writeUIntBE(number, bytesLength\[, pos\])](#bufwriteuintbenumber-bytesLength-pos)
+  - [buf.writeUIntLE(number, bytesLength\[, pos\])](#bufwriteuintlenumber-byteslength-pos)
+  - [buf.writeUIntBE(number, bytesLength\[, pos\])](#bufwriteuintbenumber-byteslength-pos)
   - [buf.writeUInt8(number\[, pos\])](#bufwriteuint8number-pos)
   - [buf.writeUInt16LE(number\[, pos\])](#bufwriteuint16lenumber-pos)
   - [buf.writeUInt16BE(number\[, pos\])](#bufwriteuint16benumber-pos)
@@ -116,7 +116,6 @@
   - [buf.parent](#bufparent)
 - [How to retrieve BufferUtility V1 ?](#how-to-retrieve-bufferutility-v1-)
 - [LICENSE](#license)
-
 
 <!-- /TOC -->
 
@@ -504,7 +503,7 @@ console.log(buf.filename);
 
 ### buf.readByte([pos])
 
-- `pos` : `<integer>` the position of the byte to read. Default: [`buf.position`](#bufposition)
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
 - Returns : `<Number>`
 
 Read the byte in the position specified, if not specified he read the actual position and increase it by 1.
@@ -525,8 +524,8 @@ console.log(buf.readByte());
 
 ### buf.writeByte(value[, pos])
 
-- `value` : `<integer>` the value of the byte to write in the buffer
-- `pos` : `<integer>` the position of the byte to write. Default: [`buf.position`](#bufposition)
+- `value` : `<integer>` The value of the byte to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to write. Default: [`buf.position`](#bufposition)
 - Returns : `<BufferUtility>`
 
 Write the value in the position specified, if it is not specified he read the actual position and increase it by 1.
@@ -546,11 +545,12 @@ console.log(buf.readByte());
 
 ### buf.rightShift(length[, pos[, logical]])
 
-- `length` : `<integer>` the length to shift right
-- `pos` : `<integer>` the position of the start of the right shift. Default: [`buf.position`](#bufposition)
-- `logical` : `<boolean>` use logical instead of arithmetic. Default: `false`
+- `length` : `<integer>` Number of bytes to right shift.
+- `pos` : `<integer>` Number of bytes to skip before starting to right shift. Default: [`buf.position`](#bufposition)
+- `logical` : `<boolean>` Use logical instead of arithmetic. Default: `false`
+- Returns : `<BufferUtility>`
 
-Fill the buffer with `0x00`, or `0xff` if logical is true by the length and move the byte to the right
+Fill the buffer with `0x00`, or `0xff` if logical is true by the `length` and move the byte to the right
 
 ```js
 const buf = BufferUtility([0x01]);
@@ -565,10 +565,11 @@ console.log(buf.rightShift(5, 0, true));
 
 ### buf.leftShift(length[, pos])
 
-- `length` : `<integer>` the length to shift right
-- `pos` : `<integer>` the position of the start of the right shift. Default: [`buf.position`](#bufposition)
+- `length` : `<integer>` Number of bytes to left shift.
+- `pos` : `<integer>` Number of bytes to skip before starting to left shift. Default: [`buf.position`](#bufposition)
+- Returns : `<BufferUtility>`
 
-Move the bytes left by the length and truncate the end for remove extra bytes
+Move the bytes left by the `length` and truncate the end for remove extra bytes
 
 ```js
 const buf = BufferUtility([0x00, 0x00, 0x00, 0x00, 0x00, 0x01]);
@@ -579,7 +580,623 @@ console.log(buf.leftShift(5));
 // <BufferUtility 01>
 ```
 
-### Next README WIP
+### buf.read(length[, pos])
+
+- `length` : `<integer>` Number of bytes to read.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<BufferUtility>`
+
+Reads a specific region of the `buffer` and advances the current `position` by the `length` if the `position` is not specified
+
+```js
+const buf = BufferUtility([0x01, 0x02, 0x03, 0x04, 0x05, 0x06]);
+
+console.log(buf.read(4));
+// <BufferUtility 01 02 03 04>
+console.log(buf.read(2, 4));
+// <BufferUtility 05 06>
+```
+
+### buf.readBytes(length[, pos])
+
+See [buf.read(length\[, pos\])](#bufreadlength-pos)
+
+### buf.slice(pos[, final])
+
+- `pos` : `<integer>` Number of bytes to skip before starting to read.
+- `final` : `<integer>` The position of the stop to read. Default: [`buf.length`](#buflength)
+- Returns : `<BufferUtility>`
+
+Reads a specific region of the `buffer`.
+
+```js
+const buf = BufferUtility([0x01, 0x02, 0x03, 0x04, 0x05, 0x06]);
+
+console.log(buf.slice(0, 4));
+// <BufferUtility 01 02 03 04>
+console.log(buf.slice(4));
+// <BufferUtility 05 06>
+```
+
+### buf.writeBytes(buffer[, pos])
+
+- `buffer` : `<Buffer>` | `<BufferUtility>` | `<Array>` | `<Uint8Array>`
+the bytes to write in the `buffer`
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<BufferUtility>`
+
+Write the `buffer` to the `buf` and advance the position by the length of the buffer if not specified
+
+```js
+const buf = BufferUtility([0x01, 0x02, 0x03, 0x04, 0x05, 0x06]);
+buf2 = BufferUtility([0x07, 0x08]);
+
+buf.writeBytes(buf2, 6);
+
+console.log(buf);
+// <BufferUtility 01 02 03 04 05 06 07 08>
+
+buf.writeBytes([0x00, 0x01]);
+
+console.log(buf);
+// <BufferUtility 00 01 03 04 05 06 07 08>
+```
+
+### buf.readIntLE(bytesLength[, pos])
+
+- `bytesLength` : `<integer>` Number of bytes to read.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Reads `bytesLength` number of bytes from `buf` at the specified position (if not specified the actual position of the buf) and interprets the result as a little-endian.
+
+```js
+const buf = BufferUtility([0x01, 0x00, 0x00, 0x00]);
+
+console.log(buf.readIntLE(4));
+// 1
+
+const buf2 = BufferUtility([0xfe, 0xff, 0xff, 0xff])
+
+console.log(buf2.readIntLE(4, 0));
+// -2
+```
+
+### buf.readIntBE(bytesLength[, pos])
+
+- `bytesLength` : `<integer>` Number of bytes to read.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Reads `bytesLength` number of bytes from `buf` at the specified position (if not specified the actual position of the buf) and interprets the result as a big-endian.
+
+```js
+const buf = BufferUtility([0x00, 0x00, 0x00, 0x01]);
+
+console.log(buf.readIntBE(4));
+// 1
+
+const buf2 = BufferUtility([0xff, 0xff, 0xff, 0xfe])
+
+console.log(buf2.readIntBE(4, 0));
+// -2
+```
+
+### buf.readSByte([pos])
+
+See [buf.readInt8(\[pos\])](#bufreadint8pos)
+
+### buf.readInt8([pos])
+
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Reads a signed 8-bit integer from `buf` at the specified `pos`, if not specified the `buf.position` is increase by `1`.
+
+```js
+const buf = BufferUtility([0x01]);
+
+console.log(buf.readInt8());
+// 1
+
+const buf2 = BufferUtility([0xfe])
+
+console.log(buf2.readInt8(0));
+// -2
+```
+
+### buf.readInt16LE([pos])
+
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Reads a signed, little-endian 16-bit integer from `buf` at the specified `pos`, if not specified the `buf.position` is increase by `2`.
+
+```js
+const buf = BufferUtility([0x01, 0x00]);
+
+console.log(buf.readInt16LE());
+// 1
+
+const buf2 = BufferUtility([0xfe, 0xff])
+
+console.log(buf2.readInt16LE(0));
+// -2
+```
+
+### buf.readInt16BE([pos])
+
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Reads a signed, big-endian 16-bit integer from `buf` at the specified `pos`, if not specified the `buf.position` is increase by `2`.
+
+```js
+const buf = BufferUtility([0x00, 0x01]);
+
+console.log(buf.readInt16BE());
+// 1
+
+const buf2 = BufferUtility([0xff, 0xfe])
+
+console.log(buf2.readInt16BE(0));
+// -2
+```
+
+### buf.readInt32LE([pos])
+
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Reads a signed, little-endian 32-bit integer from `buf` at the specified `pos`, if not specified the `buf.position` is increase by `4`.
+
+```js
+const buf = BufferUtility([0x01, 0x00, 0x00, 0x00]);
+
+console.log(buf.readInt32LE());
+// 1
+
+const buf2 = BufferUtility([0xfe, 0xff, 0xff, 0xff])
+
+console.log(buf2.readInt32LE(0));
+// -2
+```
+
+### buf.readInt32BE([pos])
+
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Reads a signed, big-endian 32-bit integer from `buf` at the specified `pos`, if not specified the `buf.position` is increase by `4`.
+
+```js
+const buf = BufferUtility([0x00, 0x00, 0x00, 0x01]);
+
+console.log(buf.readInt32BE());
+// 1
+
+const buf2 = BufferUtility([0xff, 0xff, 0xff, 0xfe])
+
+console.log(buf2.readInt32BE(0));
+// -2
+```
+
+### buf.readInt64LE([pos])
+
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Reads a signed, little-endian 64-bit integer from `buf` at the specified `pos`, if not specified the `buf.position` is increase by `8`.
+
+Returns `<BigInt>` if the number is greater than [`Number.MAX_SAFE_INTEGER`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER) (hex: `0x1FFFFFFFFFFFFF`, decimal: `9007199254740991`)
+
+```js
+const buf = BufferUtility([0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]);
+
+console.log(buf.readInt64LE());
+// 1
+
+const buf2 = BufferUtility([0xfe, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff])
+
+console.log(buf2.readInt64LE(0));
+// -2
+```
+
+### buf.readInt64BE([pos])
+
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Reads a signed, big-endian 64-bit integer from `buf` at the specified `pos`, if not specified the `buf.position` is increase by `8`.
+
+Returns `<BigInt>` if the number is greater than [`Number.MAX_SAFE_INTEGER`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER) (hex: `0x1FFFFFFFFFFFFF`, decimal: `9007199254740991`)
+
+```js
+const buf = BufferUtility([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01]);
+
+console.log(buf.readInt64BE());
+// 1
+
+const buf2 = BufferUtility([0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfe])
+
+console.log(buf2.readInt64BE(0));
+// -2
+```
+
+### buf.readInt128LE([pos])
+
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Reads a signed, little-endian 128-bit integer from `buf` at the specified `pos`, if not specified the `buf.position` is increase by `16`.
+
+Returns `<BigInt>` if the number is greater than [`Number.MAX_SAFE_INTEGER`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER) (hex: `0x1FFFFFFFFFFFFF`, decimal: `9007199254740991`)
+
+```js
+const buf = BufferUtility([0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]);
+
+console.log(buf.readInt128LE());
+// 1
+
+const buf2 = BufferUtility([0xfe, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff])
+
+console.log(buf2.readInt128LE(0));
+// -2
+```
+
+### buf.readInt128BE([pos])
+
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Reads a signed, big-endian 128-bit integer from `buf` at the specified `pos`, if not specified the `buf.position` is increase by `16`.
+
+Returns `<BigInt>` if the number is greater than [`Number.MAX_SAFE_INTEGER`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER) (hex: `0x1FFFFFFFFFFFFF`, decimal: `9007199254740991`)
+
+```js
+const buf = BufferUtility([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01]);
+
+console.log(buf.readInt128BE());
+// 1
+
+const buf2 = BufferUtility([0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfe])
+
+console.log(buf2.readInt128BE(0));
+// -2
+```
+
+### buf.readUIntLE(bytesLength[, pos])
+
+- `bytesLength` : `<integer>` Number of bytes to read.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Reads `bytesLength` number of bytes from `buf` at the specified position (if not specified the actual position of the buf) and interprets the result as a little-endian.
+
+```js
+const buf = BufferUtility([0x01, 0x00, 0x00, 0x00]);
+
+console.log(buf.readUIntLE(4));
+// 1
+
+const buf2 = BufferUtility([0xff, 0xff, 0xff, 0xff])
+
+console.log(buf2.readUIntLE(4, 0));
+// 4294967295
+```
+
+### buf.readUIntBE(bytesLength[, pos])
+
+- `bytesLength` : `<integer>` Number of bytes to read.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Reads `bytesLength` number of bytes from `buf` at the specified position (if not specified the actual position of the buf) and interprets the result as a big-endian.
+
+```js
+const buf = BufferUtility([0x00, 0x00, 0x00, 0x01]);
+
+console.log(buf.readUIntBE(4));
+// 1
+
+const buf2 = BufferUtility([0xff, 0xff, 0xff, 0xff])
+
+console.log(buf2.readUIntBE(4, 0));
+// 4294967295
+```
+
+### buf.readUInt8([pos])
+
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Reads an unsigned 8-bit integer from `buf` at the specified `pos`, if not specified the `buf.position` is increase by `1`.
+
+```js
+const buf = BufferUtility([0x01]);
+
+console.log(buf.readUInt8());
+// 1
+
+const buf2 = BufferUtility([0xff])
+
+console.log(buf2.readUInt8(0));
+// 255
+```
+
+### buf.readUInt16LE([pos])
+
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Reads an unsigned, little-endian 16-bit integer from `buf` at the specified `pos`, if not specified the `buf.position` is increase by `2`.
+
+```js
+const buf = BufferUtility([0x01, 0x00]);
+
+console.log(buf.readUInt16LE());
+// 1
+
+const buf2 = BufferUtility([0xff, 0xff])
+
+console.log(buf2.readUInt16LE(0));
+// 65535
+```
+
+### buf.readUInt16BE([pos])
+
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Reads an unsigned, big-endian 16-bit integer from `buf` at the specified `pos`, if not specified the `buf.position` is increase by `2`.
+
+```js
+const buf = BufferUtility([0x00, 0x01]);
+
+console.log(buf.readUInt16BE());
+// 1
+
+const buf2 = BufferUtility([0xff, 0xff])
+
+console.log(buf2.readUInt16BE(0));
+// 65535
+```
+
+### buf.readUInt32LE([pos])
+
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Reads an unsigned, little-endian 32-bit integer from `buf` at the specified `pos`, if not specified the `buf.position` is increase by `4`.
+
+```js
+const buf = BufferUtility([0x01, 0x00, 0x00, 0x00]);
+
+console.log(buf.readUInt32LE());
+// 1
+
+const buf2 = BufferUtility([0xff, 0xff, 0xff, 0xff])
+
+console.log(buf2.readUInt32LE(0));
+// 4294967295
+```
+
+### buf.readUInt32BE([pos])
+
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Reads an unsigned, big-endian 32-bit integer from `buf` at the specified `pos`, if not specified the `buf.position` is increase by `4`.
+
+```js
+const buf = BufferUtility([0x00, 0x00, 0x00, 0x01]);
+
+console.log(buf.readUInt32BE());
+// 1
+
+const buf2 = BufferUtility([0xff, 0xff, 0xff, 0xff])
+
+console.log(buf2.readUInt32BE(0));
+// 4294967295
+```
+
+### buf.readUInt64LE([pos])
+
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Reads an unsigned, little-endian 64-bit integer from `buf` at the specified `pos`, if not specified the `buf.position` is increase by `8`.
+
+Returns `<BigInt>` if the number is greater than [`Number.MAX_SAFE_INTEGER`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER) (hex: `0x1FFFFFFFFFFFFF`, decimal: `9007199254740991`)
+
+```js
+const buf = BufferUtility([0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]);
+
+console.log(buf.readUInt64LE());
+// 1
+
+const buf2 = BufferUtility([0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff]);
+
+console.log(buf2.readUInt64LE(0));
+// 18446744073709551615n
+```
+
+### buf.readUInt64BE([pos])
+
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Reads an unsigned, big-endian 64-bit integer from `buf` at the specified `pos`, if not specified the `buf.position` is increase by `8`.
+
+Returns `<BigInt>` if the number is greater than [`Number.MAX_SAFE_INTEGER`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER) (hex: `0x1FFFFFFFFFFFFF`, decimal: `9007199254740991`)
+
+```js
+const buf = BufferUtility([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01]);
+
+console.log(buf.readUInt64BE());
+// 1
+
+const buf2 = BufferUtility([0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff]);
+
+console.log(buf2.readUInt64BE(0));
+// 18446744073709551615n
+```
+
+### buf.readUInt128LE([pos])
+
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Reads an unsigned, little-endian 128-bit integer from `buf` at the specified `pos`, if not specified the `buf.position` is increase by `16`.
+
+Returns `<BigInt>` if the number is greater than [`Number.MAX_SAFE_INTEGER`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER) (hex: `0x1FFFFFFFFFFFFF`, decimal: `9007199254740991`)
+
+```js
+const buf = BufferUtility([0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]);
+
+console.log(buf.readUInt128LE());
+// 1
+
+const buf2 = BufferUtility([0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff]);
+
+console.log(buf2.readUInt128LE(0));
+// 340282366920938463463374607431768211455n
+```
+
+### buf.readUInt128BE([pos])
+
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Reads an unsigned, big-endian 128-bit integer from `buf` at the specified `pos`, if not specified the `buf.position` is increase by `16`.
+
+Returns `<BigInt>` if the number is greater than [`Number.MAX_SAFE_INTEGER`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER) (hex: `0x1FFFFFFFFFFFFF`, decimal: `9007199254740991`)
+
+```js
+const buf = BufferUtility([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01]);
+
+console.log(buf.readUInt128BE());
+// 1
+
+const buf2 = BufferUtility([0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff]);
+
+console.log(buf2.readUInt128BE(0));
+// 340282366920938463463374607431768211455n
+```
+
+### buf.writeIntLE(number, bytesLength[, pos])
+
+### buf.writeIntBE(number, bytesLength[, pos])
+
+### buf.writeSByte(number[, pos])
+
+### buf.writeInt8(number[, pos])
+
+### buf.writeInt16LE(number[, pos])
+
+### buf.writeInt16BE(number[, pos])
+
+### buf.writeInt32LE(number[, pos])
+
+### buf.writeInt32BE(number[, pos])
+
+### buf.writeInt64LE(number[, pos])
+
+### buf.writeInt64BE(number[, pos])
+
+### buf.writeInt128LE(number[, pos])
+
+### buf.writeInt128BE(number[, pos])
+
+### buf.writeUIntLE(number, bytesLength[, pos])
+
+### buf.writeUIntBE(number, bytesLength[, pos])
+
+### buf.writeUInt8(number[, pos])
+
+### buf.writeUInt16LE(number[, pos])
+
+### buf.writeUInt16BE(number[, pos])
+
+### buf.writeUInt32LE(number[, pos])
+
+### buf.writeUInt32BE(number[, pos])
+
+### buf.writeUInt64LE(number[, pos])
+
+### buf.writeUInt64BE(number[, pos])
+
+### buf.writeUInt128LE(number[, pos])
+
+### buf.writeUInt128BE(number[, pos])
+
+### buf.read7BitEncodedInt([pos])
+
+### buf.write7BitEncodedInt(number[, pos])
+
+### buf.readBoolean([pos])
+
+### buf.writeBoolean(bool[, pos])
+
+### buf.readFloatLE([pos])
+
+### buf.readFloatBE([pos])
+
+### buf.readDoubleLE([pos])
+
+### buf.readDoubleBE([pos])
+
+### buf.writeFloatLE(number[, pos])
+
+### buf.writeFloatBE(number[, pos])
+
+### buf.writeDoubleLE(number[, pos])
+
+### buf.writeDoubleBE(number[, pos])
+
+### buf.readString(length[, encoding[, pos]])
+
+### buf.readChar([encoding[, pos]])
+
+### buf.readChars(length[, encoding[, pos]])
+
+### buf.writeString(string[, encoding[, pos]])
+
+### buf.writeChar(char[, encoding[, pos]])
+
+### buf.writeChars(chars[, encoding[, pos]])
+
+### buf.swap16()
+
+### buf.swap32()
+
+### buf.swap64()
+
+### buf.swap128()
+
+### buf.toString(encoding)
+
+### buf.toBuffer()
+
+### buf.toBufferList()
+
+### buf.toJSON()
+
+### buf.length
+
+### buf.fileDescriptor
+
+### buf.filename
+
+### buf.forceOffset
+
+### buf.forceLength
+
+### buf.position
+
+### buf.isDeleted
+
+### buf.parent
 
 ## How to retrieve BufferUtility V1 ?
 
@@ -588,8 +1205,8 @@ V1 is still in BufferUtility for take it you can make this
 ```js
 const bufferutility = require("bufferutility");
 
-let BufferReader = bufferutility.old.BufferReader;
-let BufferWriter = bufferutility.old.BufferWriter;
+let BufferReader = bufferutility.v1.BufferReader;
+let BufferWriter = bufferutility.v1.BufferWriter;
 
 new BufferReader();
 new BufferWriter();
@@ -598,7 +1215,7 @@ new BufferWriter();
 Or
 
 ```js
-const { old: { BufferReader, BufferWriter } } = require("bufferutility");
+const { v1: { BufferReader, BufferWriter } } = require("bufferutility");
 
 new BufferReader();
 new BufferWriter();
