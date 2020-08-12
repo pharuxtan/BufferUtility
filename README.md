@@ -1447,7 +1447,11 @@ console.log(buf);
 
 ### buf.read7BitEncodedInt([pos])
 
+### buf.read7BitEncodedInt64([pos])
+
 ### buf.write7BitEncodedInt(number[, pos])
+
+### buf.write7BitEncodedInt64(number[, pos])
 
 ### buf.readBoolean([pos])
 
