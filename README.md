@@ -103,6 +103,7 @@
   - [buf.swap64()](#bufswap64)
   - [buf.swap128()](#bufswap128)
   - [buf.toString(encoding)](#buftostringencoding)
+  - [buf.toLocaleString(encoding)](#buftolocalestringencoding)
   - [buf.toBuffer()](#buftobuffer)
   - [buf.toBufferList()](#buftobufferlist)
   - [buf.toJSON()](#buftojson)
@@ -648,7 +649,7 @@ console.log(buf);
 - `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
 - Returns : `<integer>`
 
-Reads `bytesLength` number of bytes from `buf` at the specified position (if not specified the actual position of the buf) and interprets the result as a little-endian.
+Reads `bytesLength` number of bytes from `buf` at the specified position (if not specified the actual position of the `buf` is taken) and interprets the result as a little-endian.
 
 ```js
 const buf = BufferUtility([0x01, 0x00, 0x00, 0x00]);
@@ -668,7 +669,7 @@ console.log(buf2.readIntLE(4, 0));
 - `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
 - Returns : `<integer>`
 
-Reads `bytesLength` number of bytes from `buf` at the specified position (if not specified the actual position of the buf) and interprets the result as a big-endian.
+Reads `bytesLength` number of bytes from `buf` at the specified position (if not specified the actual position of the `buf` is taken) and interprets the result as a big-endian.
 
 ```js
 const buf = BufferUtility([0x00, 0x00, 0x00, 0x01]);
@@ -871,7 +872,7 @@ console.log(buf2.readInt128BE(0));
 - `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
 - Returns : `<integer>`
 
-Reads `bytesLength` number of bytes from `buf` at the specified position (if not specified the actual position of the buf) and interprets the result as a little-endian.
+Reads `bytesLength` number of bytes from `buf` at the specified position (if not specified the actual position of the `buf` is taken) and interprets the result as a little-endian.
 
 ```js
 const buf = BufferUtility([0x01, 0x00, 0x00, 0x00]);
@@ -891,7 +892,7 @@ console.log(buf2.readUIntLE(4, 0));
 - `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
 - Returns : `<integer>`
 
-Reads `bytesLength` number of bytes from `buf` at the specified position (if not specified the actual position of the buf) and interprets the result as a big-endian.
+Reads `bytesLength` number of bytes from `buf` at the specified position (if not specified the actual position of the `buf` is taken) and interprets the result as a big-endian.
 
 ```js
 const buf = BufferUtility([0x00, 0x00, 0x00, 0x01]);
@@ -1086,49 +1087,363 @@ console.log(buf2.readUInt128BE(0));
 
 ### buf.writeIntLE(number, bytesLength[, pos])
 
+- `number` : `<integer>` The number to write.
+- `bytesLength` : `<integer>` Number of bytes to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to write. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Writes `bytesLength` bytes of `number` to `buf` at the specified position (if not specified the actual position of the `buf` is taken) as little-endian.
+
+```js
+const buf = BufferUtility();
+buf.writeIntLE(1, 4)
+
+console.log(buf);
+// <BufferUtility 01 00 00 00>
+```
+
 ### buf.writeIntBE(number, bytesLength[, pos])
+
+- `number` : `<integer>` The number to write.
+- `bytesLength` : `<integer>` Number of bytes to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to write. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Writes `bytesLength` bytes of `number` to `buf` at the specified position (if not specified the actual position of the `buf` is taken) as big-endian.
+
+```js
+const buf = BufferUtility();
+buf.writeIntBE(1, 4)
+
+console.log(buf);
+// <BufferUtility 00 00 00 01>
+```
 
 ### buf.writeSByte(number[, pos])
 
+See [buf.writeInt8(number\[, pos\])](#bufwriteint8number-pos)
+
 ### buf.writeInt8(number[, pos])
+
+- `number` : `<integer>` The number to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Writes `number` to `buf` at the specified `position`, if not specified the `buf.position` is increase by `1`. `number` must be a valid signed 8-bit integer. Behavior is giving an Error when `number` is anything other than an signed 8-bit integer.
+
+```js
+const buf = BufferUtility();
+buf.writeInt8(1);
+
+console.log(buf);
+// <BufferUtility 01>
+```
 
 ### buf.writeInt16LE(number[, pos])
 
+- `number` : `<integer>` The number to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Writes `number` to `buf` at the specified `position` as little-endian, if `position` is not specified the `buf.position` is increase by `2`. `number` must be a valid signed 16-bit integer. Behavior is giving an Error when `number` is anything other than an signed 16-bit integer.
+
+```js
+const buf = BufferUtility();
+buf.writeInt16LE(1);
+
+console.log(buf);
+// <BufferUtility 01 00>
+```
+
 ### buf.writeInt16BE(number[, pos])
+
+- `number` : `<integer>` The number to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Writes `number` to `buf` at the specified `position` as big-endian, if `position` is not specified the `buf.position` is increase by `2`. `number` must be a valid signed 16-bit integer. Behavior is giving an Error when `number` is anything other than an signed 16-bit integer.
+
+```js
+const buf = BufferUtility();
+buf.writeInt16BE(1);
+
+console.log(buf);
+// <BufferUtility 00 01>
+```
 
 ### buf.writeInt32LE(number[, pos])
 
+- `number` : `<integer>` The number to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Writes `number` to `buf` at the specified `position` as little-endian, if `position` is not specified the `buf.position` is increase by `4`. `number` must be a valid signed 32-bit integer. Behavior is giving an Error when `number` is anything other than an signed 32-bit integer.
+
+```js
+const buf = BufferUtility();
+buf.writeInt32LE(1);
+
+console.log(buf);
+// <BufferUtility 01 00 00 00>
+```
+
 ### buf.writeInt32BE(number[, pos])
+
+- `number` : `<integer>` The number to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Writes `number` to `buf` at the specified `position` as big-endian, if `position` is not specified the `buf.position` is increase by `4`. `number` must be a valid signed 32-bit integer. Behavior is giving an Error when `number` is anything other than an signed 32-bit integer.
+
+```js
+const buf = BufferUtility();
+buf.writeInt32BE(1);
+
+console.log(buf);
+// <BufferUtility 00 00 00 01>
+```
 
 ### buf.writeInt64LE(number[, pos])
 
+- `number` : `<integer>` The number to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Writes `number` to `buf` at the specified `position` as little-endian, if `position` is not specified the `buf.position` is increase by `8`. `number` must be a valid signed 64-bit integer. Behavior is giving an Error when `number` is anything other than an signed 64-bit integer.
+
+```js
+const buf = BufferUtility();
+buf.writeInt64LE(1);
+
+console.log(buf);
+// <BufferUtility 01 00 00 00 00 00 00 00>
+```
+
 ### buf.writeInt64BE(number[, pos])
+
+- `number` : `<integer>` The number to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Writes `number` to `buf` at the specified `position` as big-endian, if `position` is not specified the `buf.position` is increase by `8`. `number` must be a valid signed 64-bit integer. Behavior is giving an Error when `number` is anything other than an signed 64-bit integer.
+
+```js
+const buf = BufferUtility();
+buf.writeInt64BE(1);
+
+console.log(buf);
+// <BufferUtility 00 00 00 00 00 00 00 01>
+```
 
 ### buf.writeInt128LE(number[, pos])
 
+- `number` : `<integer>` The number to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Writes `number` to `buf` at the specified `position` as little-endian, if `position` is not specified the `buf.position` is increase by `16`. `number` must be a valid signed 128-bit integer. Behavior is giving an Error when `number` is anything other than an signed 128-bit integer.
+
+```js
+const buf = BufferUtility();
+buf.writeInt128LE(1);
+
+console.log(buf);
+// <BufferUtility 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00>
+```
+
 ### buf.writeInt128BE(number[, pos])
+
+- `number` : `<integer>` The number to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Writes `number` to `buf` at the specified `position` as big-endian, if `position` is not specified the `buf.position` is increase by `16`. `number` must be a valid signed 128-bit integer. Behavior is giving an Error when `number` is anything other than an signed 128-bit integer.
+
+```js
+const buf = BufferUtility();
+buf.writeInt128BE(1);
+
+console.log(buf);
+// <BufferUtility 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01>
+```
 
 ### buf.writeUIntLE(number, bytesLength[, pos])
 
+- `number` : `<integer>` The number to write.
+- `bytesLength` : `<integer>` Number of bytes to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to write. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Writes `bytesLength` bytes of `number` to `buf` at the specified position (if not specified the actual position of the `buf` is taken) as little-endian.
+
+```js
+const buf = BufferUtility();
+buf.writeUIntLE(1, 4)
+
+console.log(buf);
+// <BufferUtility 01 00 00 00>
+```
+
 ### buf.writeUIntBE(number, bytesLength[, pos])
+
+- `number` : `<integer>` The number to write.
+- `bytesLength` : `<integer>` Number of bytes to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to write. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Writes `bytesLength` bytes of `number` to `buf` at the specified position (if not specified the actual position of the `buf` is taken) as big-endian.
+
+```js
+const buf = BufferUtility();
+buf.writeUIntBE(1, 4)
+
+console.log(buf);
+// <BufferUtility 00 00 00 01>
+```
 
 ### buf.writeUInt8(number[, pos])
 
+- `number` : `<integer>` The number to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Writes `number` to `buf` at the specified `position`, if not specified the `buf.position` is increase by `1`. `number` must be a valid unsigned 8-bit integer. Behavior is giving an Error when `number` is anything other than an unsigned 8-bit integer.
+
+```js
+const buf = BufferUtility();
+buf.writeUInt8(1);
+
+console.log(buf);
+// <BufferUtility 01>
+```
+
 ### buf.writeUInt16LE(number[, pos])
+
+- `number` : `<integer>` The number to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Writes `number` to `buf` at the specified `position` as little-endian, if `position` is not specified the `buf.position` is increase by `2`. `number` must be a valid unsigned 16-bit integer. Behavior is giving an Error when `number` is anything other than an unsigned 16-bit integer.
+
+```js
+const buf = BufferUtility();
+buf.writeUInt16LE(1);
+
+console.log(buf);
+// <BufferUtility 01 00>
+```
 
 ### buf.writeUInt16BE(number[, pos])
 
+- `number` : `<integer>` The number to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Writes `number` to `buf` at the specified `position` as big-endian, if `position` is not specified the `buf.position` is increase by `2`. `number` must be a valid unsigned 16-bit integer. Behavior is giving an Error when `number` is anything other than an unsigned 16-bit integer.
+
+```js
+const buf = BufferUtility();
+buf.writeUInt16BE(1);
+
+console.log(buf);
+// <BufferUtility 00 01>
+```
+
 ### buf.writeUInt32LE(number[, pos])
+
+- `number` : `<integer>` The number to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Writes `number` to `buf` at the specified `position` as little-endian, if `position` is not specified the `buf.position` is increase by `4`. `number` must be a valid unsigned 32-bit integer. Behavior is giving an Error when `number` is anything other than an unsigned 32-bit integer.
+
+```js
+const buf = BufferUtility();
+buf.writeUInt32LE(1);
+
+console.log(buf);
+// <BufferUtility 01 00 00 00>
+```
 
 ### buf.writeUInt32BE(number[, pos])
 
+- `number` : `<integer>` The number to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Writes `number` to `buf` at the specified `position` as big-endian, if `position` is not specified the `buf.position` is increase by `4`. `number` must be a valid unsigned 32-bit integer. Behavior is giving an Error when `number` is anything other than an unsigned 32-bit integer.
+
+```js
+const buf = BufferUtility();
+buf.writeUInt32BE(1);
+
+console.log(buf);
+// <BufferUtility 00 00 00 01>
+```
+
 ### buf.writeUInt64LE(number[, pos])
+
+- `number` : `<integer>` The number to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Writes `number` to `buf` at the specified `position` as little-endian, if `position` is not specified the `buf.position` is increase by `8`. `number` must be a valid unsigned 64-bit integer. Behavior is giving an Error when `number` is anything other than an unsigned 64-bit integer.
+
+```js
+const buf = BufferUtility();
+buf.writeUInt64LE(1);
+
+console.log(buf);
+// <BufferUtility 01 00 00 00 00 00 00 00>
+```
 
 ### buf.writeUInt64BE(number[, pos])
 
+- `number` : `<integer>` The number to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Writes `number` to `buf` at the specified `position` as big-endian, if `position` is not specified the `buf.position` is increase by `8`. `number` must be a valid unsigned 64-bit integer. Behavior is giving an Error when `number` is anything other than an unsigned 64-bit integer.
+
+```js
+const buf = BufferUtility();
+buf.writeUInt64BE(1);
+
+console.log(buf);
+// <BufferUtility 00 00 00 00 00 00 00 01>
+```
+
 ### buf.writeUInt128LE(number[, pos])
 
+- `number` : `<integer>` The number to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Writes `number` to `buf` at the specified `position` as little-endian, if `position` is not specified the `buf.position` is increase by `16`. `number` must be a valid unsigned 128-bit integer. Behavior is giving an Error when `number` is anything other than an unsigned 128-bit integer.
+
+```js
+const buf = BufferUtility();
+buf.writeUInt128LE(1);
+
+console.log(buf);
+// <BufferUtility 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00>
+```
+
 ### buf.writeUInt128BE(number[, pos])
+
+- `number` : `<integer>` The number to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<integer>`
+
+Writes `number` to `buf` at the specified `position` as big-endian, if `position` is not specified the `buf.position` is increase by `16`. `number` must be a valid unsigned 128-bit integer. Behavior is giving an Error when `number` is anything other than an unsigned 128-bit integer.
+
+```js
+const buf = BufferUtility();
+buf.writeUInt128BE(1);
+
+console.log(buf);
+// <BufferUtility 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01>
+```
 
 ### buf.read7BitEncodedInt([pos])
 
@@ -1175,6 +1490,8 @@ console.log(buf2.readUInt128BE(0));
 ### buf.swap128()
 
 ### buf.toString(encoding)
+
+### buf.toLocaleString(encoding)
 
 ### buf.toBuffer()
 
