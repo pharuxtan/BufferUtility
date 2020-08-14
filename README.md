@@ -1532,7 +1532,7 @@ console.log(buf2);
 ### buf.readBoolean([pos])
 
 - `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
-- Returns : `<Number>`
+- Returns : `<boolean>`
 
 Read a `boolean` value from the `buf` at the position specified, if not specified he read the actual position and increase it by 1.
 
@@ -1566,19 +1566,123 @@ console.log(buf);
 
 ### buf.readFloatLE([pos])
 
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<Number>`
+
+Reads a 32-bit, little-endian float from `buf` at the specified `position`, if it is not specified the position is the current position of the `buf`.
+
+```js
+const buf = BufferUtility([0x01, 0x02, 0x03, 0x04]);
+
+console.log(buf.readFloatLE());
+// 1.539989614439558e-36
+```
+
 ### buf.readFloatBE([pos])
+
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<Number>`
+
+Reads a 32-bit, big-endian float from `buf` at the specified `position`, if it is not specified the position is the current position of the `buf`.
+
+```js
+const buf = BufferUtility([0x04, 0x03, 0x02, 0x01]);
+
+console.log(buf.readFloatBE());
+// 1.539989614439558e-36
+```
 
 ### buf.readDoubleLE([pos])
 
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<Number>`
+
+Reads a 64-bit, little-endian double from `buf` at the specified `position`, if it is not specified the position is the current position of the `buf`.
+
+```js
+const buf = BufferUtility([0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08]);
+
+console.log(buf.readDoubleLE());
+// 5.447603722011605e-270
+```
+
 ### buf.readDoubleBE([pos])
+
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<Number>`
+
+Reads a 64-bit, big-endian double from `buf` at the specified `position`, if it is not specified the position is the current position of the `buf`.
+
+```js
+const buf = BufferUtility([0x08, 0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01]);
+
+console.log(buf.readDoubleBE());
+// 5.447603722011605e-270
+```
 
 ### buf.writeFloatLE(number[, pos])
 
+- `number` : `<Number>` The number to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<BufferUtility>`
+
+Writes `value` to `buf` at the specified `position` as little-endian., if `position` is not specified the position is the current position of the `buf`.
+
+```js
+const buf = BufferUtility();
+buf.writeFloatLE(0xcafebabe);
+
+console.log(buf);
+// <BufferUtility bb fe 4a 4f>
+```
+
 ### buf.writeFloatBE(number[, pos])
+
+- `number` : `<Number>` The number to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<BufferUtility>`
+
+Writes `value` to `buf` at the specified `position` as big-endian., if `position` is not specified the position is the current position of the `buf`.
+
+```js
+const buf = BufferUtility();
+buf.writeFloatBE(0xcafebabe);
+
+console.log(buf);
+// <BufferUtility 4f 4a fe bb>
+```
 
 ### buf.writeDoubleLE(number[, pos])
 
+- `number` : `<Number>` The number to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<BufferUtility>`
+
+Writes `value` to `buf` at the specified `position` as little-endian., if `position` is not specified the position is the current position of the `buf`.
+
+```js
+const buf = BufferUtility();
+buf.writeDoubleLE(123.456);
+
+console.log(buf);
+// <BufferUtility 77 be 9f 1a 2f dd 5e 40>
+```
+
 ### buf.writeDoubleBE(number[, pos])
+
+- `number` : `<Number>` The number to write.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<BufferUtility>`
+
+Writes `value` to `buf` at the specified `position` as big-endian., if `position` is not specified the position is the current position of the `buf`.
+
+```js
+const buf = BufferUtility();
+buf.writeDoubleBE(123.456);
+
+console.log(buf);
+// <BufferUtility 40 5e dd 2f 1a 9f be 77>
+```
 
 ### buf.readString(length[, encoding[, pos]])
 
