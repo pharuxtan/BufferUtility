@@ -1,6 +1,6 @@
 {
   "name": "bufferutility",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "BufferUtility break the Nodejs buffer size limitation by reading/writing a file dynamically",
   "main": "index.js",
   "repository": {
