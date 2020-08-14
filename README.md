@@ -104,16 +104,14 @@
   - [buf.swap32()](#bufswap32)
   - [buf.swap64()](#bufswap64)
   - [buf.swap128()](#bufswap128)
-  - [buf.toString(encoding)](#buftostringencoding)
-  - [buf.toLocaleString(encoding)](#buftolocalestringencoding)
+  - [buf.toString(\[encoding\])](#buftostringencoding)
+  - [buf.toLocaleString(\[encoding\])](#buftolocalestringencoding)
   - [buf.toBuffer()](#buftobuffer)
   - [buf.toBufferList()](#buftobufferlist)
   - [buf.toJSON()](#buftojson)
   - [buf.length](#buflength)
   - [buf.fileDescriptor](#buffiledescriptor)
   - [buf.filename](#buffilename)
-  - [buf.forceOffset](#bufforceoffset)
-  - [buf.forceLength](#bufforcelength)
   - [buf.position](#bufposition)
   - [buf.isDeleted](#bufisdeleted)
   - [buf.parent](#bufparent)
@@ -231,7 +229,7 @@ console.log(concat2 === buf5);
 // false
 
 console.log(buf5.filename);
-// C:/Users/%username%/AppData%/Temp/BufferUtility/(random 32 length hex digit).bin
+// C:/Users/%username%/AppData/Temp/BufferUtility/(random 32 length hex digit).bin
 
 BufferUtility.changeTmpFolder("D:/Temp", true);
 
@@ -328,7 +326,7 @@ Change the temp folder where temporary files are stocked
 let buf1 = BufferUtility("test");
 
 console.log(buf1.filename);
-// C:/Users/%username%/AppData%/Temp/BufferUtility/(random 32 length hex digit).bin
+// C:/Users/%username%/AppData/Temp/BufferUtility/(random 32 length hex digit).bin
 
 BufferUtility.changeTmpFolder("D:/Temp");
 
@@ -429,7 +427,7 @@ const buf2 = buf.clone("C:/myfile.txt");
 console.log(buf);
 // <BufferUtility 61 62 63 64 65 66>
 console.log(buf.filename);
-// C:/Users/%username%/AppData%/Temp/BufferUtility/(random 32 length hex digit).bin
+// C:/Users/%username%/AppData/Temp/BufferUtility/(random 32 length hex digit).bin
 
 console.log(buf2);
 // <BufferUtility 61 62 63 64 65 66>
@@ -450,7 +448,7 @@ WARNING: if the file already exist the buffer will not move but will be replaced
 const buf = BufferUtility();
 
 console.log(buf.filename);
-// C:/Users/%username%/AppData%/Temp/BufferUtility/(random 32 length hex digit).bin
+// C:/Users/%username%/AppData/Temp/BufferUtility/(random 32 length hex digit).bin
 
 buf.move("C:/myfile.txt");
 
@@ -470,7 +468,7 @@ const buf = BufferUtility();
 console.log(buf);
 // <BufferUtility >
 console.log(buf.filename);
-// C:/Users/%username%/AppData%/Temp/BufferUtility/(random 32 length hex digit).bin
+// C:/Users/%username%/AppData/Temp/BufferUtility/(random 32 length hex digit).bin
 
 buf.delete();
 
@@ -501,7 +499,7 @@ buf.new();
 console.log(buf)
 // <BufferUtility >
 console.log(buf.filename);
-// C:/Users/%username%/AppData%/Temp/BufferUtility/(random 32 length hex digit).bin
+// C:/Users/%username%/AppData/Temp/BufferUtility/(random 32 length hex digit).bin
 ```
 
 ### buf.readByte([pos])
@@ -1626,7 +1624,7 @@ console.log(buf.readDoubleBE());
 - `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
 - Returns : `<BufferUtility>`
 
-Writes `value` to `buf` at the specified `position` as little-endian., if `position` is not specified the position is the current position of the `buf`.
+Writes `value` to `buf` at the specified `position` as little-endian, if `position` is not specified the position is the current position of the `buf`.
 
 ```js
 const buf = BufferUtility();
@@ -1642,7 +1640,7 @@ console.log(buf);
 - `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
 - Returns : `<BufferUtility>`
 
-Writes `value` to `buf` at the specified `position` as big-endian., if `position` is not specified the position is the current position of the `buf`.
+Writes `value` to `buf` at the specified `position` as big-endian, if `position` is not specified the position is the current position of the `buf`.
 
 ```js
 const buf = BufferUtility();
@@ -1658,7 +1656,7 @@ console.log(buf);
 - `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
 - Returns : `<BufferUtility>`
 
-Writes `value` to `buf` at the specified `position` as little-endian., if `position` is not specified the position is the current position of the `buf`.
+Writes `value` to `buf` at the specified `position` as little-endian, if `position` is not specified the position is the current position of the `buf`.
 
 ```js
 const buf = BufferUtility();
@@ -1674,7 +1672,7 @@ console.log(buf);
 - `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
 - Returns : `<BufferUtility>`
 
-Writes `value` to `buf` at the specified `position` as big-endian., if `position` is not specified the position is the current position of the `buf`.
+Writes `value` to `buf` at the specified `position` as big-endian, if `position` is not specified the position is the current position of the `buf`.
 
 ```js
 const buf = BufferUtility();
@@ -1686,49 +1684,333 @@ console.log(buf);
 
 ### buf.readString(length[, encoding[, pos]])
 
+- `length` : `<integer>` The length of the string to be read.
+- `encoding` : `<String>` The encoding of the string. Default: `utf8`.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<String>`
+
+Reads a string from the `buf` at the `position`, if `position` is not specified the position is the current position of the `buf`.
+
+```js
+const buf = BufferUtility("hello");
+
+console.log(buf.readString(5));
+// hello
+```
+
 ### buf.readChar([encoding[, pos]])
+
+- `encoding` : `<String>` The encoding of the char. Default: `utf8`.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<String>`
+
+Reads a char from the `buf` at the `position`, if `position` is not specified the position is the current position of the `buf`.
+
+```js
+const buf = BufferUtility("a");
+
+console.log(buf.readChar());
+// a
+```
 
 ### buf.readChars(length[, encoding[, pos]])
 
+- `length` : `<integer>` The length of the chars to be read.
+- `encoding` : `<String>` The encoding of the chars. Default: `utf8`.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<Array>`
+
+Reads a region of char from the `buf` at the `position`, if `position` is not specified the position is the current position of the `buf`.
+
+```js
+const buf = BufferUtility("ab");
+
+console.log(buf.readChars(2));
+// [ 'a', 'b' ]
+```
+
 ### buf.writeString(string[, encoding[, pos]])
+
+- `string` : `<String>` The string to write.
+- `encoding` : `<String>` The encoding of the string. Default: `utf8`.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<BufferUtility>`
+
+Write `string` to the `buf` at the `position`, if `position` is not specified the position is the current position of the `buf`.
+
+```js
+const buf = BufferUtility();
+buf.writeString("hello");
+
+console.log(buf);
+// <BufferUtility 68 65 6c 6c 6f>
+console.log(buf.toString());
+// hello
+```
 
 ### buf.writeChar(char[, encoding[, pos]])
 
+- `char` : `<String>` The char to write.
+- `encoding` : `<String>` The encoding of the string. Default: `utf8`.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<BufferUtility>`
+
+Write the `char` to the `buf` at the `position`, if `position` is not specified the position is the current position of the `buf`.
+
+```js
+const buf = BufferUtility();
+buf.writeChar("a");
+
+console.log(buf);
+// <BufferUtility 61>
+console.log(buf.toString());
+// a
+```
+
 ### buf.writeChars(chars[, encoding[, pos]])
+
+- `chars` : `<Array>` The chars to write.
+- `encoding` : `<String>` The encoding of the string. Default: `utf8`.
+- `pos` : `<integer>` Number of bytes to skip before starting to read. Default: [`buf.position`](#bufposition)
+- Returns : `<BufferUtility>`
+
+Write the `chars` to the `buf` at the `position`, if `position` is not specified the position is the current position of the `buf`.
+
+```js
+const buf = BufferUtility();
+buf.writeChars(["a", "b"]);
+
+console.log(buf);
+// <BufferUtility 61 62>
+console.log(buf.toString());
+// ab
+```
 
 ### buf.swap16()
 
+- Returns : `<BufferUtility>`
+
+Interprets `buf` as an array of unsigned 16-bit integers and swaps the byte order *in-place*.
+
+```js
+const buf = BufferUtility([0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08]);
+
+console.log(buf);
+// <BufferUtility 01 02 03 04 05 06 07 08>
+
+buf.swap16();
+
+console.log(buf);
+// <BufferUtility 02 01 04 03 06 05 08 07>
+```
+
 ### buf.swap32()
+
+- Returns : `<BufferUtility>`
+
+Interprets `buf` as an array of unsigned 32-bit integers and swaps the byte order *in-place*.
+
+```js
+const buf = BufferUtility([0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08]);
+
+console.log(buf);
+// <BufferUtility 01 02 03 04 05 06 07 08>
+
+buf.swap32();
+
+console.log(buf);
+// <BufferUtility 04 03 02 01 08 07 06 05>
+```
 
 ### buf.swap64()
 
+- Returns : `<BufferUtility>`
+
+Interprets `buf` as an array of unsigned 64-bit integers and swaps the byte order *in-place*.
+
+```js
+const buf = BufferUtility([0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10]);
+
+console.log(buf);
+// <BufferUtility 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10>
+
+buf.swap64();
+
+console.log(buf);
+// <BufferUtility 08 07 06 05 04 03 02 01 10 0f 0e 0d 0c 0b 0a 09>
+```
+
 ### buf.swap128()
 
-### buf.toString(encoding)
+- Returns : `<BufferUtility>`
 
-### buf.toLocaleString(encoding)
+Interprets `buf` as an array of unsigned 128-bit integers and swaps the byte order *in-place*.
+
+```js
+const buf = BufferUtility([0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10]);
+
+console.log(buf);
+// <BufferUtility 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10>
+
+buf.swap128();
+
+console.log(buf);
+// <BufferUtility 10 0f 0e 0d 0c 0b 0a 09 08 07 06 05 04 03 02 01>
+```
+
+### buf.toString([encoding])
+
+- `encoding` : `<String>` The character encoding to use. Default: `utf8`.
+- Returns : `<String>`
+
+Decodes `buf` to a string according to the specified character encoding in `encoding`.
+
+```js
+const buf = BufferUtility("A cool string");
+
+console.log(buf.toString());
+// A cool string
+```
+
+### buf.toLocaleString([encoding])
+
+See [buf.toString(\[encoding\])](#buftostringencoding)
 
 ### buf.toBuffer()
 
+- Returns : `<Buffer>`
+
+Decodes `buf` to a buffer.
+
+```js
+const buf = BufferUtility([0x01, 0x02, 0x03]);
+
+console.log(buf.toBuffer());
+// <Buffer 01 02 03>
+```
+
 ### buf.toBufferList()
+
+- Returns : `<Array>`
+
+Decodes `buf` to a list of buffer (if the file length is greater than `2147483647`).
+
+```js
+const buf = BufferUtility([0x01, 0x02, 0x03]);
+
+console.log(buf.toBufferList());
+// [ <Buffer 01 02 03> ]
+```
 
 ### buf.toJSON()
 
+- Returns : `<Object>`
+
+Returns a JSON representation of `buf`. [`JSON.stringify()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) implicitly calls this function when stringifying a `BufferUtility` instance.
+
+```js
+const buf = BufferUtility([0x01, 0x02, 0x03, 0x04, 0x05]);
+const json = JSON.stringify(buf);
+
+console.log(json);
+// {"type":"BufferUtility","data":[1,2,3,4,5]}
+```
+
 ### buf.length
+
+- `<integer>` Getter
+
+Returns the number of bytes in `buf`.
+
+```js
+const buf = BufferUtility([0x01, 0x02, 0x03, 0x04, 0x05]);
+
+console.log(buf.length);
+// 5
+```
 
 ### buf.fileDescriptor
 
+- `<integer>` Getter
+
+Returns the file descriptor of the `buf`.
+
+```js
+const buf = BufferUtility([0x01, 0x02, 0x03, 0x04, 0x05]);
+const fd = buf.fileDescriptor;
+
+console.log(fs.fstatSync(fd));
+// Stats { dev, mode, nlink, uid, gid, rdev, blocksize, ino, size, blocks, atimeMs, mtimeMs, ctimeMs, birthtimeMs, atime, mtime, ctime, birthtime }
+```
+
 ### buf.filename
 
-### buf.forceOffset
+- `<String>` Getter
 
-### buf.forceLength
+Returns the filename of the `buf`.
+
+```js
+const buf = BufferUtility();
+
+console.log(buf.filename);
+// C:/Users/%username%/AppData/Temp/BufferUtility/(random 32 length hex digit).bin
+```
 
 ### buf.position
 
+- `<integer>` Getter/Setter
+
+Returns the position of the `buf`.
+
+```js
+const buf = BufferUtility([0x01]);
+
+console.log(buf.position);
+// 0
+
+buf.readByte();
+
+console.log(buf.position);
+// 1
+```
+
 ### buf.isDeleted
 
+- `<boolean>` Getter
+
+Know if the `buf` is deleted.
+
+```js
+const buf = BufferUtility([0x01]);
+
+console.log(buf.isDeleted);
+// false
+
+buf.delete();
+
+console.log(buf.isDeleted);
+// true
+```
+
 ### buf.parent
+
+- `<BufferUtility>` Getter
+
+The parent of the `buf`, `null` if no parents
+
+```js
+const buf = BufferUtility([0x01, 0x02]);
+
+console.log(buf.parent);
+// null
+
+const buf2 = buf.read(1);
+
+console.log(buf2);
+// <BufferUtility 01>
+console.log(buf2.parent);
+// <BufferUtility 01 02>
+```
 
 ## How to retrieve BufferUtility V1 ?
 
