@@ -377,7 +377,7 @@ console.log(buf3.toString());
 
 ### byteLength(string[, encoding])
 
-See https://nodejs.org/api/buffer.html#buffer_class_method_buffer_bytelength_string_encoding
+See https://nodejs.org/api/buffer.html#buffer_static_method_buffer_bytelength_string_encoding
 
 ### compare(buf1, buf2)
 
@@ -385,7 +385,7 @@ See https://nodejs.org/api/buffer.html#buffer_class_method_buffer_bytelength_str
 - `buf2` : `<BufferUtility>`
 - Returns : Either `-1`, `0`, or `1`, depending on the result of the comparison.
 
-See https://nodejs.org/api/buffer.html#buffer_class_method_buffer_compare_buf1_buf2 for more details
+See https://nodejs.org/api/buffer.html#buffer_static_method_buffer_compare_buf1_buf2 for more details
 
 ## Class: BufferUtility
 
