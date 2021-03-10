@@ -11,7 +11,9 @@ export class BufferUtility {
   clone(file?: string): BufferUtility | undefined;
   move(file?: string): BufferUtility | undefined;
   delete(): boolean | undefined;
-  new(file?: string): BufferUtility | undefined;
+  newBuf(file?: string): BufferUtility | undefined;
+
+  changeDefaultEndian(endian: string): undefined;
   
   readByte(pos?: number): number | undefined;
   writeByte(value: number, pos?: number): number | undefined;
@@ -29,6 +31,12 @@ export class BufferUtility {
   readSByte(pos?: number): number | undefined;
   readInt8(pos?: number): number | undefined;
 
+  readInt(bytesLength: number, pos?: number): number | BigInt | undefined;
+  readInt16(pos?: number): number | undefined;
+  readInt32(pos?: number): number | undefined;
+  readInt64(pos?: number): number | BigInt | undefined;
+  readInt128(pos?: number): number | BigInt | undefined;
+
   readIntLE(bytesLength: number, pos?: number): number | BigInt | undefined;
   readInt16LE(pos?: number): number | undefined;
   readInt32LE(pos?: number): number | undefined;
@@ -42,6 +50,12 @@ export class BufferUtility {
   readInt128BE(pos?: number): number | BigInt | undefined;
 
   readUInt8(pos?: number): number | undefined;
+
+  readUInt(bytesLength: number, pos?: number): number | BigInt | undefined;
+  readUInt16(pos?: number): number | undefined;
+  readUInt32(pos?: number): number | undefined;
+  readUInt64(pos?: number): number | BigInt | undefined;
+  readUInt128(pos?: number): number | BigInt | undefined;
 
   readUIntLE(bytesLength: number, pos?: number): number | BigInt | undefined;
   readUInt16LE(pos?: number): number | undefined;
@@ -58,6 +72,12 @@ export class BufferUtility {
   writeSByte(number: number | BigInt, pos?: number): BufferUtility | undefined;
   writeInt8(number: number | BigInt, pos?: number): BufferUtility | undefined;
 
+  writeInt(number: number | BigInt, bytesLength: number, pos?: number): BufferUtility | undefined;
+  writeInt16(number: number | BigInt, pos?: number): BufferUtility | undefined;
+  writeInt32(number: number | BigInt, pos?: number): BufferUtility | undefined;
+  writeInt64(number: number | BigInt, pos?: number): BufferUtility | undefined;
+  writeInt128(number: number | BigInt, pos?: number): BufferUtility | undefined;
+
   writeIntLE(number: number | BigInt, bytesLength: number, pos?: number): BufferUtility | undefined;
   writeInt16LE(number: number | BigInt, pos?: number): BufferUtility | undefined;
   writeInt32LE(number: number | BigInt, pos?: number): BufferUtility | undefined;
@@ -71,6 +91,12 @@ export class BufferUtility {
   writeInt128BE(number: number | BigInt, pos?: number): BufferUtility | undefined;
 
   writeUInt8(number: number | BigInt, pos?: number): BufferUtility | undefined;
+
+  writeUInt(number: number | BigInt, bytesLength: number, pos?: number): BufferUtility | undefined;
+  writeUInt16(number: number | BigInt, pos?: number): BufferUtility | undefined;
+  writeUInt32(number: number | BigInt, pos?: number): BufferUtility | undefined;
+  writeUInt64(number: number | BigInt, pos?: number): BufferUtility | undefined;
+  writeUInt128(number: number | BigInt, pos?: number): BufferUtility | undefined;
 
   writeUIntLE(number: number | BigInt, bytesLength: number, pos?: number): BufferUtility | undefined;
   writeUInt16LE(number: number | BigInt, pos?: number): BufferUtility | undefined;
@@ -91,6 +117,11 @@ export class BufferUtility {
 
   readBoolean(pos?: number): boolean | undefined;
   writeBoolean(bool: boolean, pos?: number): BufferUtility | undefined;
+
+  readFloat(pos?: number): number | undefined;
+  readDouble(pos?: number): number | undefined;
+  writeFloat(number: number, pos?: number): BufferUtility | undefined;
+  writeDouble(number: number, pos?: number): BufferUtility | undefined;
 
   readFloatLE(pos?: number): number | undefined;
   readFloatBE(pos?: number): number | undefined;
