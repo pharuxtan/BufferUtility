@@ -1,32 +1,24 @@
 {
   "name": "bufferutility",
-  "version": "2.2.3",
-  "description": "BufferUtility break the Nodejs buffer size limitation by reading/writing a file dynamically",
-  "main": "index.js",
-  "types": "index.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Pharuxtan/BufferUtility.git"
-  },
+  "version": "3.0.0",
+  "description": "A Node and Bun compatible buffer tool that permit easier binary manipulation.",
+  "main": "lib/index.js",
+  "type": "module",
   "keywords": [
-    "binaryreader",
-    "binarywriter",
-    "bufferreader",
-    "bufferwriter",
     "buffer",
-    "read",
-    "write",
-    "bigbuffer",
-    "big",
-    "file"
+    "binary",
+    "file",
+    "bun",
+    "node"
   ],
-  "author": "Pharuxtan",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Pharuxtan/BufferUtility/issues"
+  "scripts": {
+    "build": "tsc"
   },
-  "homepage": "https://github.com/Pharuxtan/BufferUtility#readme",
-  "directories": {
-    "lib": "lib"
+  "files": ["lib/**/*", "README.md", "LICENSE"],
+  "repository": "https://github.com/pharuxtan/BufferUtility",
+  "author": "pharuxtan",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.8.4"
   }
 }
