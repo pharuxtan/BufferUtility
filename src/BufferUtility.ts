@@ -863,7 +863,7 @@ export const BufferUtilityClass = class BufferUtility {
     thisPosition && (this.position += length);
 
     // Code
-    return buffer.Buffer.prototype.toString.call(this.toBuffer(), encoding, this.cOffset + position, this.cOffset + position + length);
+    return buffer.Buffer.prototype.toString.call(this.toBuffer(), encoding, position, position + length);
   }
 
   writeString(string: string, position?: number, encoding = "utf8"): number {
@@ -1040,7 +1040,7 @@ export const BufferUtilityClass = class BufferUtility {
   }
 
   toBuffer(): buffer.Buffer {
-    return buffer.Buffer.from(this.toUint8Array().buffer);
+    return buffer.Buffer.from(this.toUint8Array());
   }
 
   toBufferList(): buffer.Buffer[] {
@@ -1048,7 +1048,7 @@ export const BufferUtilityClass = class BufferUtility {
     if(this.length > this.maxArrayLength) throw new BufferUtilityError(`The buffer size is greater than possible ArrayBuffer length, please use toBufferList instead.`);
 
     // Code
-    return this.toUint8ArrayList().map(uint8Array => buffer.Buffer.from(uint8Array.buffer));
+    return this.toUint8ArrayList().map(uint8Array => buffer.Buffer.from(uint8Array));
   }
 
   get length(){
