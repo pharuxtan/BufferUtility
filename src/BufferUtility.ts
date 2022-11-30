@@ -151,7 +151,7 @@ export const BufferUtilityClass = class BufferUtility {
   writeUInt8(value: integer, position?: number): number {
     // Checks
     value = BigInt(value);
-    if(value < -0x80n || value > 0x7Fn) throw new BufferUtilityError(`Signed 8-bit value is out of range: ${value}. It must be a value between ${-0x80n} and ${-0x7Fn}.`);
+    if(value < 0n || value > 0xFFn) throw new BufferUtilityError(`Unsigned 8-bit value is out of range: ${value}. It must be a value between 0 and ${0xFFn}.`);
 
     // Code
     return this.writeByte(value, position);
@@ -167,7 +167,7 @@ export const BufferUtilityClass = class BufferUtility {
   writeInt8(value: integer, position?: number): number {
     // Checks
     value = BigInt(value);
-    if(value < 0n || value > 0xFFn) throw new BufferUtilityError(`Signed 8-bit value is out of range: ${value}. It must be a value between 0 and ${0xFFn}.`);
+    if(value < -0x80n || value > 0x7Fn) throw new BufferUtilityError(`Signed 8-bit value is out of range: ${value}. It must be a value between ${-0x80n} and ${0x7Fn}.`);
 
     // Code
     return this.writeByte(value, position);
