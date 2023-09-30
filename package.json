@@ -14,11 +14,16 @@
   "scripts": {
     "build": "tsc"
   },
-  "files": ["lib/**/*", "README.md", "LICENSE"],
+  "files": [
+    "lib/**/*",
+    "README.md",
+    "LICENSE"
+  ],
   "repository": "https://github.com/pharuxtan/BufferUtility",
   "author": "pharuxtan",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^20.8.0",
     "typescript": "^4.8.4"
   }
 }
