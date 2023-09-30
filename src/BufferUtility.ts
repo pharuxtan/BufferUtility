@@ -863,7 +863,7 @@ export const BufferUtilityClass = class BufferUtility {
     thisPosition && (this.position += length);
 
     // Code
-    return buffer.Buffer.prototype.toString.call(this.toBuffer(), encoding, position, position + length);
+    return buffer.Buffer.prototype.toString.call(buffer.Buffer.from(this.readBytes(length, position)), encoding, 0, length);
   }
 
   writeString(string: string, position?: number, encoding = "utf8"): number {
