@@ -1,6 +1,6 @@
 {
   "name": "bufferutility",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "A Node and Bun compatible buffer tool that permit easier binary manipulation.",
   "main": "lib/index.js",
   "type": "module",

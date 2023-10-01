@@ -853,7 +853,7 @@ export const BufferUtilityClass = class BufferUtility {
   }
 
   // Read/Write String
-  readString(length: number, position?: number, encoding = "utf8"): string {
+  readString(length: number, encoding = "utf8", position?: number): string {
     // Checks
     if(!buffer.Buffer.isEncoding(encoding)) throw new BufferUtilityError(`"${encoding}" is not a supported encoding.`);
     const thisPosition = position != undefined ? false : (position = this.position, true);
@@ -866,7 +866,7 @@ export const BufferUtilityClass = class BufferUtility {
     return buffer.Buffer.prototype.toString.call(buffer.Buffer.from(this.readBytes(length, position) as any), encoding, 0, length);
   }
 
-  writeString(string: string, position?: number, encoding = "utf8"): number {
+  writeString(string: string, encoding = "utf8", position?: number): number {
     // Checks
     const thisPosition = position != undefined ? false : (position = this.position, true);
     if(position < 0) throw new BufferUtilityError(`position argument can't be under 0. Got ${position}.`);
